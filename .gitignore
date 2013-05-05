@@ -1,0 +1,13 @@
+*.class
+*.form
+*.mf
+*.html
+/nbproject
+/build
+/target
+src/main/java/check/
+
+# Package Files #
+*.jar
+*.war
+*.ear
