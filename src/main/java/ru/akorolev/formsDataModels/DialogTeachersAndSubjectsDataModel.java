@@ -17,7 +17,11 @@ import java.util.List;
  */
 public class DialogTeachersAndSubjectsDataModel {
     private DAO dao = DAOImplementation.getInstance();
+    private OnModelChangeListener listener;
 
+    public void setListener(OnModelChangeListener listener) {
+        this.listener = listener;
+    }
     private List getTeachers() {
         return dao.getTeachers();
     }
@@ -29,5 +33,9 @@ public class DialogTeachersAndSubjectsDataModel {
     }
     public ListModel getSubjectsModel(Teacher teacher) {
         return new ListModelImplementation(this.getSubjects(teacher));
+    }
+    public interface OnModelChangeListener {
+        public void onTeacherDeleted();
+        public void onSubjectDeleted(Teacher teacher);
     }
 }

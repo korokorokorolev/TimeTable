@@ -23,9 +23,23 @@ public class DialogTeachersAndSubjectsController {
     public DialogTeachersAndSubjectsController() {
         dialogTeachersAndSubjects = new DialogTeachersAndSubjects(null,true);
         initView();
+        regDataModelListener();
         regListeners();
 
         dialogTeachersAndSubjects.setVisible(true);
+    }
+
+    private void regDataModelListener() {
+        dataModel.setListener(new DialogTeachersAndSubjectsDataModel.OnModelChangeListener() {
+            @Override
+            public void onTeacherDeleted() {
+                //To change body of implemented methods use File | Settings | File Templates.
+            }
+            @Override
+            public void onSubjectDeleted(Teacher teacher) {
+                //To change body of implemented methods use File | Settings | File Templates.
+            }
+        });
     }
 
     private void initView() {
@@ -47,5 +61,18 @@ public class DialogTeachersAndSubjectsController {
                 dialogTeachersAndSubjects.dispose();
             }
         });
+        dialogTeachersAndSubjects.getjButtonAddTeacher().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onAddTeachersButtonClick();
+            }
+        });
+    }
+
+    private void onAddTeachersButtonClick() {
+        DialogTeacherController dialogTeacherController = new DialogTeacherController();
+        if(dialogTeacherController.isSuccess()) {
+            dialogTeachersAndSubjects.getjListTeachers().setModel(dataModel.getTeachersModel());
+        }
     }
 }

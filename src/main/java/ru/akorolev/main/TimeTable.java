@@ -18,7 +18,11 @@ public class TimeTable {
         SwingUtilities.invokeLater(new Runnable() {
 
             public void run() {
+                try {
                 MainWindowController mainWindowController = new MainWindowController();
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
             }
         });
     }
