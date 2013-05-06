@@ -1,6 +1,8 @@
 package ru.akorolev.controllers;
 
+import ru.akorolev.entities.TrainingFeed;
 import ru.akorolev.forms.MainWindow;
+import ru.akorolev.formsDataModels.MainWindowDataModel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,12 +16,29 @@ import java.awt.event.ActionListener;
  */
 public class MainWindowController {
     private MainWindow mainWindow;
+    private MainWindowDataModel dataModel = new MainWindowDataModel();
 
     public MainWindowController() {
         mainWindow = new MainWindow();
+        initView();
         mainWindow.setVisible(true);
         mainWindow.setTitle("Расписание факультета ИВТ");
         regListeners();
+        regDatListeners();
+    }
+
+    private void regDatListeners() {
+        this.dataModel.setListener(new MainWindowDataModel.OnChangeListener() {
+            @Override
+            public void onTrainingFeedRemoved() {
+                mainWindow.getjListTrainingFeeds().setModel(dataModel.getTrainingFeedsModel());
+                mainWindow.getjListTrainingFeeds().setSelectedIndex(mainWindow.getjListTrainingFeeds().getModel().getSize() -1);
+            }
+        });
+    }
+
+    private void initView() {
+        mainWindow.getjListTrainingFeeds().setModel(dataModel.getTrainingFeedsModel());
     }
 
     private void regListeners() {
@@ -35,5 +54,30 @@ public class MainWindowController {
                 DialogAuditoriesController dialogAuditoriesController = new DialogAuditoriesController();
             }
         });
+        mainWindow.getjButtonAddTF().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onAddTFButtonClick();
+            }
+        });
+        mainWindow.getjButtonRemTF().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onRemTFButtonClick();
+            }
+        });
+    }
+
+    private void onRemTFButtonClick() {
+        if(mainWindow.getjListTrainingFeeds().getSelectedValue() != null) {
+            dataModel.remTrainingFeed((TrainingFeed) mainWindow.getjListTrainingFeeds().getSelectedValue());
+        }
+    }
+
+    private void onAddTFButtonClick() {
+        DialogAddTrainingFeedController dialogAddTrainingFeedController = new DialogAddTrainingFeedController();
+        if(dialogAddTrainingFeedController.isSuccess()) {
+            mainWindow.getjListTrainingFeeds().setModel(dataModel.getTrainingFeedsModel());
+        }
     }
 }
