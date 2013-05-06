@@ -1,5 +1,6 @@
 package ru.akorolev.controllers;
 
+import ru.akorolev.entities.Auditory;
 import ru.akorolev.forms.DialogAuditories;
 import ru.akorolev.formsDataModels.DialogAuditoriesDataModel;
 
@@ -21,7 +22,18 @@ public class DialogAuditoriesController {
         view = new DialogAuditories(null, true);
         initView();
         regListeners();
+        regDataListeners();
         view.setVisible(true);
+    }
+
+    private void regDataListeners() {
+        this.dataModel.setListener(new DialogAuditoriesDataModel.OnChangeListener() {
+            @Override
+            public void onAuditoryDeleted() {
+                view.getjListAuditories().setModel(dataModel.getAuditoriesModel());
+                view.getjListAuditories().setSelectedIndex(view.getjListAuditories().getModel().getSize() -1);
+            }
+        });
     }
 
     private void regListeners() {
@@ -37,10 +49,30 @@ public class DialogAuditoriesController {
                 onAddAuditoryButtonClick();
             }
         });
+        view.getjButtonRemAuditory().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onRemAuditoryButtonClick();
+            }
+        });
+    }
+
+    private void onRemAuditoryButtonClick() {
+        if(view.getjListAuditories().getSelectedValue() != null) {
+            try{
+                dataModel.removeAuditory((Auditory)view.getjListAuditories().getSelectedValue());
+            } catch(Exception e) {
+
+            }
+        }
     }
 
     private void onAddAuditoryButtonClick() {
-
+        DialogAddAuditoryController dialogAddAuditoryController = new DialogAddAuditoryController();
+        if(dialogAddAuditoryController.isSuccess()) {
+            view.getjListAuditories().setModel(dataModel.getAuditoriesModel());
+            view.getjListAuditories().setSelectedIndex(view.getjListAuditories().getModel().getSize() - 1);
+        }
     }
 
     private void initView() {

@@ -2,6 +2,7 @@ package ru.akorolev.formsDataModels;
 
 import ru.akorolev.databaseaccess.DAO;
 import ru.akorolev.databaseaccess.DAOImplementation;
+import ru.akorolev.entities.Auditory;
 import ru.akorolev.models.ListModelImplementation;
 
 import javax.swing.*;
@@ -16,6 +17,11 @@ import java.util.List;
  */
 public class DialogAuditoriesDataModel {
     private DAO dao = DAOImplementation.getInstance();
+    private OnChangeListener listener;
+
+    public void setListener(OnChangeListener listener) {
+        this.listener = listener;
+    }
 
     private List getAuditories() {
         return dao.getAuditories();
@@ -23,5 +29,15 @@ public class DialogAuditoriesDataModel {
 
     public ListModel getAuditoriesModel() {
         return new ListModelImplementation(getAuditories());
+    }
+
+    public void removeAuditory(Auditory auditory) {
+        dao.removeAuditory(auditory);
+        if(listener != null) {
+            listener.onAuditoryDeleted();
+        }
+    }
+    public interface OnChangeListener {
+        public void onAuditoryDeleted();
     }
 }
