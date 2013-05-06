@@ -29,5 +29,11 @@ public class MainWindowController {
                 DialogTeachersAndSubjectsController dialogTeachersAndSubjectsController = new DialogTeachersAndSubjectsController();
             }
         });
+        mainWindow.getjMenuItemAuditory().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DialogAuditoriesController dialogAuditoriesController = new DialogAuditoriesController();
+            }
+        });
     }
 }
