@@ -1,5 +1,6 @@
 package ru.akorolev.controllers;
 
+import ru.akorolev.entities.Subject;
 import ru.akorolev.entities.Teacher;
 import ru.akorolev.forms.DialogTeachersAndSubjects;
 import ru.akorolev.formsDataModels.DialogTeachersAndSubjectsDataModel;
@@ -37,9 +38,13 @@ public class DialogTeachersAndSubjectsController {
             }
             @Override
             public void onSubjectDeleted(Teacher teacher) {
-                //To change body of implemented methods use File | Settings | File Templates.
+                onSubjectDeletedImpl(teacher);
             }
         });
+    }
+
+    private void onSubjectDeletedImpl(Teacher teacher) {
+        dialogTeachersAndSubjects.getjListSubjects().setModel(dataModel.getSubjectsModel(teacher));
     }
 
     private void onTeacherDeletedImpl() {
@@ -88,6 +93,23 @@ public class DialogTeachersAndSubjectsController {
                 onRemTeacherButtonClick();
             }
         });
+        dialogTeachersAndSubjects.getjButtonRemSubject().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onRemSubjectButtonClick();
+            }
+        });
+    }
+
+    private void onRemSubjectButtonClick() {
+        if(dialogTeachersAndSubjects.getjListTeachers().getSelectedValue() != null &&
+                dialogTeachersAndSubjects.getjListSubjects().getSelectedValue() != null) {
+            try {
+                dataModel.remSubject((Subject)dialogTeachersAndSubjects.getjListSubjects().getSelectedValue());
+            } catch (Exception e) {
+
+            }
+        }
     }
 
     private void onRemTeacherButtonClick() {

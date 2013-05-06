@@ -47,6 +47,15 @@ public class DialogTeachersAndSubjectsDataModel {
         return new ListModelImplementation(new ArrayList<Subject>());
     }
 
+    public void remSubject(Subject subject) {
+        Teacher teacher = subject.getTeacherId();
+        dao.removeSubject(subject);
+        teacher.remSubject(subject);
+        if(listener != null) {
+            listener.onSubjectDeleted(teacher);
+        }
+    }
+
     public interface OnModelChangeListener {
         public void onTeacherDeleted();
         public void onSubjectDeleted(Teacher teacher);

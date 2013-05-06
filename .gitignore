@@ -11,3 +11,7 @@ src/main/java/check/
 *.jar
 *.war
 *.ear
+gg
+.idea
+.idea
+/.idea/*.xml
