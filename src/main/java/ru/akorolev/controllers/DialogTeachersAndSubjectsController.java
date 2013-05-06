@@ -67,6 +67,23 @@ public class DialogTeachersAndSubjectsController {
                 onAddTeachersButtonClick();
             }
         });
+        dialogTeachersAndSubjects.getjButtonAddSubject().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onAddSubjectButtonClick();
+            }
+        });
+    }
+
+    private void onAddSubjectButtonClick() {
+        if(dialogTeachersAndSubjects.getjListTeachers().getSelectedValue() != null) {
+            Teacher teacher = (Teacher) dialogTeachersAndSubjects.getjListTeachers().getSelectedValue();
+            DialogAddSubjectController dialogAddSubjectController = new DialogAddSubjectController(teacher);
+            if(dialogAddSubjectController.isSuccess()) {
+                dialogTeachersAndSubjects.getjListSubjects().setModel(dataModel.getSubjectsModel(teacher));
+            }
+        }
+
     }
 
     private void onAddTeachersButtonClick() {
