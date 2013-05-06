@@ -33,13 +33,22 @@ public class DialogTeachersAndSubjectsController {
         dataModel.setListener(new DialogTeachersAndSubjectsDataModel.OnModelChangeListener() {
             @Override
             public void onTeacherDeleted() {
-                //To change body of implemented methods use File | Settings | File Templates.
+                onTeacherDeletedImpl();
             }
             @Override
             public void onSubjectDeleted(Teacher teacher) {
                 //To change body of implemented methods use File | Settings | File Templates.
             }
         });
+    }
+
+    private void onTeacherDeletedImpl() {
+        dialogTeachersAndSubjects.getjListTeachers().setModel(dataModel.getTeachersModel());
+        if(dialogTeachersAndSubjects.getjListTeachers().getModel().getSize() -1 > 0) {
+            dialogTeachersAndSubjects.getjListTeachers().setSelectedIndex(dialogTeachersAndSubjects.getjListTeachers().getModel().getSize() -1);
+        } else {
+            dialogTeachersAndSubjects.getjListSubjects().setModel(dataModel.getEmptySubjectsModel());
+        }
     }
 
     private void initView() {
@@ -73,6 +82,22 @@ public class DialogTeachersAndSubjectsController {
                 onAddSubjectButtonClick();
             }
         });
+        dialogTeachersAndSubjects.getjButtonRemTeacher().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onRemTeacherButtonClick();
+            }
+        });
+    }
+
+    private void onRemTeacherButtonClick() {
+        if(dialogTeachersAndSubjects.getjListTeachers().getSelectedValue() != null) {
+            try{
+                dataModel.remTeacher((Teacher) dialogTeachersAndSubjects.getjListTeachers().getSelectedValue());
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
     }
 
     private void onAddSubjectButtonClick() {

@@ -2,10 +2,12 @@ package ru.akorolev.formsDataModels;
 
 import ru.akorolev.databaseaccess.DAO;
 import ru.akorolev.databaseaccess.DAOImplementation;
+import ru.akorolev.entities.Subject;
 import ru.akorolev.entities.Teacher;
 import ru.akorolev.models.ListModelImplementation;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,6 +36,17 @@ public class DialogTeachersAndSubjectsDataModel {
     public ListModel getSubjectsModel(Teacher teacher) {
         return new ListModelImplementation(this.getSubjects(teacher));
     }
+    public void remTeacher(Teacher teacher) {
+        dao.removeTeacher(teacher);
+        if(listener != null) {
+            listener.onTeacherDeleted();
+        }
+    }
+
+    public ListModel getEmptySubjectsModel() {
+        return new ListModelImplementation(new ArrayList<Subject>());
+    }
+
     public interface OnModelChangeListener {
         public void onTeacherDeleted();
         public void onSubjectDeleted(Teacher teacher);
