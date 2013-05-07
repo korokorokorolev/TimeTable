@@ -22,7 +22,6 @@ public class MainWindowDataModel {
     public void setListener(OnChangeListener listener) {
         this.listener = listener;
     }
-
     public ListModel getTrainingFeedsModel() {
         return new ListModelImplementation(this.getTrainingFeeds());
     }

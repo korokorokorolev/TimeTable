@@ -15,9 +15,9 @@ import java.awt.event.ActionListener;
  * Time: 16:44
  * To change this template use File | Settings | File Templates.
  */
-public class DialogAddTrainingFeedController {
+public class DialogAddTrainingFeedController extends AbstractController{
     private DialogAddTrainingFeed view;
-    private DialogAddTrainingFeedDataModel dataModel = new DialogAddTrainingFeedDataModel();
+    private DialogAddTrainingFeedDataModel dataModel;
     private TrainingFeed trainingFeed = new TrainingFeed();
     private boolean isSuccess = false;
 
@@ -26,13 +26,22 @@ public class DialogAddTrainingFeedController {
     }
 
     public DialogAddTrainingFeedController() {
-        this.view = new DialogAddTrainingFeed(null, true);
-        regListeners();
-        regDataListeners();
+        super();
         this.view.setVisible(true);
     }
 
-    private void regDataListeners() {
+    @Override
+    void initDataModel() {
+        dataModel = new DialogAddTrainingFeedDataModel();
+    }
+
+    @Override
+    void initView() {
+        this.view = new DialogAddTrainingFeed(null, true);
+    }
+
+    @Override
+    void regDataListeners() {
         this.dataModel.setOnchangeListener(new DialogAddTrainingFeedDataModel.OnChangeListener() {
             @Override
             public void onGroupRemoved(TrainingFeed trainingFeed1) {
@@ -41,7 +50,8 @@ public class DialogAddTrainingFeedController {
         });
     }
 
-    private void regListeners() {
+    @Override
+    void regListeners() {
         view.getjButtonCancel().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -17,17 +17,18 @@ import java.awt.event.ActionListener;
  * Time: 11:59
  * To change this template use File | Settings | File Templates.
  */
-public class DialogTeachersAndSubjectsController {
+public class DialogTeachersAndSubjectsController extends AbstractController{
     private DialogTeachersAndSubjects dialogTeachersAndSubjects;
-    private DialogTeachersAndSubjectsDataModel dataModel = new DialogTeachersAndSubjectsDataModel();
+    private DialogTeachersAndSubjectsDataModel dataModel;
 
     public DialogTeachersAndSubjectsController() {
-        dialogTeachersAndSubjects = new DialogTeachersAndSubjects(null,true);
-        initView();
-        regDataModelListener();
-        regListeners();
-
+        super();
         dialogTeachersAndSubjects.setVisible(true);
+    }
+
+    @Override
+    void initDataModel() {
+        dataModel = new DialogTeachersAndSubjectsDataModel();
     }
 
     private void regDataModelListener() {
@@ -55,12 +56,18 @@ public class DialogTeachersAndSubjectsController {
             dialogTeachersAndSubjects.getjListSubjects().setModel(dataModel.getEmptySubjectsModel());
         }
     }
-
-    private void initView() {
+    @Override
+    void initView() {
+        dialogTeachersAndSubjects = new DialogTeachersAndSubjects(null,true);
         dialogTeachersAndSubjects.getjListTeachers().setModel(dataModel.getTeachersModel());
     }
 
-    private void regListeners() {
+    @Override
+    void regDataListeners() {
+        regDataModelListener();
+    }
+    @Override
+    void regListeners() {
         dialogTeachersAndSubjects.getjListTeachers().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {

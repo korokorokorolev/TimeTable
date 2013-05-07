@@ -15,21 +15,35 @@ import java.awt.event.ActionListener;
  * Time: 17:02
  * To change this template use File | Settings | File Templates.
  */
-public class DialogAddGroupController {
+public class DialogAddGroupController extends AbstractController{
     private DialogAddGroup view;
-    private DialogAddGroupDataModel dataModel = new DialogAddGroupDataModel();
+    private DialogAddGroupDataModel dataModel;
     private boolean isSuccess = false;
     TrainingFeed trainingFeed;
 
     public DialogAddGroupController(TrainingFeed trainingFeed) {
-        view = new DialogAddGroup(null, true);
+        super();
         this.trainingFeed = trainingFeed;
-        regListeners();
-
         view.setVisible(true);
     }
 
-    private void regListeners() {
+    @Override
+    void initDataModel() {
+        dataModel = new DialogAddGroupDataModel();
+    }
+
+    @Override
+    void initView() {
+        view = new DialogAddGroup(null, true);
+    }
+
+    @Override
+    void regDataListeners() {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    void regListeners() {
         view.getjButtonCancel().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

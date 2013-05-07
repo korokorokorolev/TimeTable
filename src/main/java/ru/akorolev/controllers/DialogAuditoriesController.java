@@ -14,19 +14,27 @@ import java.awt.event.ActionListener;
  * Time: 12:53
  * To change this template use File | Settings | File Templates.
  */
-public class DialogAuditoriesController {
+public class DialogAuditoriesController extends AbstractController{
     private DialogAuditories view;
-    private DialogAuditoriesDataModel dataModel = new DialogAuditoriesDataModel();
+    private DialogAuditoriesDataModel dataModel;
 
     public DialogAuditoriesController() {
-        view = new DialogAuditories(null, true);
-        initView();
-        regListeners();
-        regDataListeners();
+        super();
         view.setVisible(true);
     }
 
-    private void regDataListeners() {
+    @Override
+    void initDataModel() {
+        dataModel = new DialogAuditoriesDataModel();
+    }
+    @Override
+    void initView() {
+        view = new DialogAuditories(null, true);
+        view.getjListAuditories().setModel(dataModel.getAuditoriesModel());
+        view.getjListAuditories().setSelectedIndex(0);
+    }
+    @Override
+    void regDataListeners() {
         this.dataModel.setListener(new DialogAuditoriesDataModel.OnChangeListener() {
             @Override
             public void onAuditoryDeleted() {
@@ -35,8 +43,8 @@ public class DialogAuditoriesController {
             }
         });
     }
-
-    private void regListeners() {
+    @Override
+    void regListeners() {
         view.getjButtonBack().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -75,8 +83,5 @@ public class DialogAuditoriesController {
         }
     }
 
-    private void initView() {
-        view.getjListAuditories().setModel(dataModel.getAuditoriesModel());
-        view.getjListAuditories().setSelectedIndex(0);
-    }
+
 }

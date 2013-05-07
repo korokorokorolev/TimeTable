@@ -14,18 +14,33 @@ import java.awt.event.ActionListener;
  * Time: 11:56
  * To change this template use File | Settings | File Templates.
  */
-public class DialogTeacherController {
+public class DialogTeacherController extends AbstractController{
     private DialogTeacher dialogTeacher;
-    private DialogTeacherDataModel dataModel = new DialogTeacherDataModel();
+    private DialogTeacherDataModel dataModel;
     private boolean isSuccess = false;
 
     public DialogTeacherController() {
-        dialogTeacher = new DialogTeacher(null, true);
-        regListeners();
+        super();
         dialogTeacher.setVisible(true);
     }
 
-    private void regListeners() {
+    @Override
+    void initDataModel() {
+        dataModel = new DialogTeacherDataModel();
+    }
+
+    @Override
+    void initView() {
+        dialogTeacher = new DialogTeacher(null, true);
+    }
+
+    @Override
+    void regDataListeners() {
+
+    }
+
+    @Override
+    void regListeners() {
         dialogTeacher.getjButtonOk().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

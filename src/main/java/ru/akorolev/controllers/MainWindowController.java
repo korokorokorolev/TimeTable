@@ -14,17 +14,17 @@ import java.awt.event.ActionListener;
  * Time: 11:43
  * To change this template use File | Settings | File Templates.
  */
-public class MainWindowController {
+public class MainWindowController extends AbstractController{
     private MainWindow mainWindow;
-    private MainWindowDataModel dataModel = new MainWindowDataModel();
+    private MainWindowDataModel dataModel;
 
     public MainWindowController() {
-        mainWindow = new MainWindow();
-        initView();
-        mainWindow.setVisible(true);
-        mainWindow.setTitle("Расписание факультета ИВТ");
-        regListeners();
-        regDatListeners();
+        super();
+    }
+
+    @Override
+    void initDataModel() {
+        dataModel = new MainWindowDataModel();
     }
 
     private void regDatListeners() {
@@ -36,12 +36,22 @@ public class MainWindowController {
             }
         });
     }
-
-    private void initView() {
+    @Override
+    void initView() {
+        mainWindow = new MainWindow();
         mainWindow.getjListTrainingFeeds().setModel(dataModel.getTrainingFeedsModel());
+        mainWindow.setVisible(true);
+        mainWindow.setTitle("Расписание факультета ИВТ");
+
     }
 
-    private void regListeners() {
+    @Override
+    void regDataListeners() {
+        regDatListeners();
+    }
+
+    @Override
+    void regListeners() {
         mainWindow.getjMenuItemTeachersAndSubjects().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

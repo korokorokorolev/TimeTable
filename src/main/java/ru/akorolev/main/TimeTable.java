@@ -21,7 +21,7 @@ public class TimeTable {
                 try {
                 MainWindowController mainWindowController = new MainWindowController();
                 } catch (Exception e) {
-                    System.out.println(e);
+                    e.printStackTrace();
                 }
             }
         });
