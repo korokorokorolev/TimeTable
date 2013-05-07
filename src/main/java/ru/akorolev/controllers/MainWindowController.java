@@ -76,6 +76,19 @@ public class MainWindowController extends AbstractController{
                 onRemTFButtonClick();
             }
         });
+        mainWindow.getjButtonEdit().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onEditButtonClick();
+            }
+        });
+    }
+
+    private void onEditButtonClick() {
+        if(mainWindow.getjListTrainingFeeds().getSelectedValue() != null) {
+            DialogRaspisanieController dialogRaspisanieController =
+                    new DialogRaspisanieController((TrainingFeed)mainWindow.getjListTrainingFeeds().getSelectedValue());
+        }
     }
 
     private void onRemTFButtonClick() {
