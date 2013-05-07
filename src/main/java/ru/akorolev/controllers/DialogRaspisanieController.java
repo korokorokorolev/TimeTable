@@ -1,9 +1,12 @@
 package ru.akorolev.controllers;
 
+import ru.akorolev.entities.Cell;
+import ru.akorolev.entities.Groups;
 import ru.akorolev.entities.TrainingFeed;
 import ru.akorolev.forms.DialogRaspisanie;
 import ru.akorolev.formsDataModels.DialogRaspisanieDataModel;
 import ru.akorolev.staticsVariables.Days;
+import ru.akorolev.widgets.DayTable;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -38,6 +41,8 @@ public class DialogRaspisanieController extends AbstractController{
         view.getDayTable4().setModel(dataModel.getDayTableModel(Days.THURSDAY, trainingFeed));
         view.getDayTable5().setModel(dataModel.getDayTableModel(Days.FRIDAY, trainingFeed));
         view.getDayTable6().setModel(dataModel.getDayTableModel(Days.SATURDAY, trainingFeed));
+
+        view.getDayTable1().setDefaultRenderer(Object.class, dataModel.getRenderer(Days.MONDAY, trainingFeed));
     }
 
     @Override
@@ -59,26 +64,37 @@ public class DialogRaspisanieController extends AbstractController{
 
         @Override
         public void mouseClicked(MouseEvent e) {
+            if (e.getClickCount() == 2) {
+                String grName = ((DayTable) e.getComponent()).getColumnName(((DayTable) e.getComponent()).getSelectedColumn());
+                Groups group = dataModel.getGroup(grName);
+                String day = ((DayTable) e.getComponent()).getDay();
+                int trainingNum = ((DayTable) e.getComponent()).getSelectedRow();
+                Cell cell = new Cell();
+                cell.setDay(day);
+                cell.setTrainingNum(trainingNum);
+                cell.setGroupsId(group);
+                System.out.println(cell.getDay() + " " + cell.getTrainingNum() + " " + cell.getGroupsId());
+                DialogCellController dialogCellController = new DialogCellController(false, cell);
+                if(dialogCellController.isSuccess()) {
+                    repaintTables();
+                }
+            }
         }
 
         @Override
         public void mousePressed(MouseEvent e) {
-            //To change body of implemented methods use File | Settings | File Templates.
         }
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            //To change body of implemented methods use File | Settings | File Templates.
         }
 
         @Override
         public void mouseEntered(MouseEvent e) {
-            //To change body of implemented methods use File | Settings | File Templates.
         }
 
         @Override
         public void mouseExited(MouseEvent e) {
-            //To change body of implemented methods use File | Settings | File Templates.
         }
     }
 
