@@ -26,6 +26,24 @@ public class Panel4PartController {
         initListeners();
     }
 
+    public Panel4PartController(Panel4Part panel4Part, Subject subject, Auditory auditory) {
+        this.panel4Part = panel4Part;
+        initViewEdit(subject, auditory);
+        initListeners();
+    }
+
+    private void initViewEdit(Subject subject, Auditory auditory) {
+        this.panel4Part.getjComboBoxTeacher().setModel(dataModel.getTeachersModel());
+        this.panel4Part.getjComboBoxAuditory().setModel(dataModel.getAuditoriesModel());
+
+        if (subject != null && subject.getTeacherId() != null) {
+            this.panel4Part.getjComboBoxTeacher().setSelectedItem(subject.getTeacherId());
+            onComboBoxTeachersChange();
+            this.panel4Part.getjComboBoxSubject().setSelectedItem(subject);
+            this.panel4Part.getjComboBoxAuditory().setSelectedItem(auditory);
+        }
+    }
+
     private void initListeners() {
         this.panel4Part.getjComboBoxTeacher().addActionListener(new ActionListener() {
             @Override
@@ -59,6 +77,15 @@ public class Panel4PartController {
     }
     public Auditory getAuditory() {
         return (Auditory) this.panel4Part.getjComboBoxAuditory().getSelectedItem();
+    }
+
+    public boolean isReady() {
+        if(this.getTeacher() == null && this.getAuditory() != null ||
+                this.getTeacher() != null && this.getAuditory() == null) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 }

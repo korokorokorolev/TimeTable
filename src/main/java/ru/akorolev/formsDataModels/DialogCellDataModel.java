@@ -17,4 +17,8 @@ public class DialogCellDataModel {
     public void saveCell(Cell cell) {
         dao.saveCell(cell);
     }
+
+    public void editCell(Cell cell) {
+        dao.editCell(cell);
+    }
 }

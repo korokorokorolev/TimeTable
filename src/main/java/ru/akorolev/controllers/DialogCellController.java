@@ -39,6 +39,12 @@ public class DialogCellController extends AbstractController{
             panel4PartController2 = new Panel4PartController(view.getPanel4Part2());
             panel4PartController3 = new Panel4PartController(view.getPanel4Part3());
             panel4PartController4 = new Panel4PartController(view.getPanel4Part4());
+        } else {
+//            Add start values to constructor
+            panel4PartController1 = new Panel4PartController(view.getPanel4Part1(), cell.getSubject1(), cell.getAuditory1());
+            panel4PartController2 = new Panel4PartController(view.getPanel4Part2(), cell.getSubject2(), cell.getAuditory2());
+            panel4PartController3 = new Panel4PartController(view.getPanel4Part3(), cell.getSubject3(), cell.getAuditory3());
+            panel4PartController4 = new Panel4PartController(view.getPanel4Part4(), cell.getSubject4(), cell.getAuditory4());
         }
     }
 
@@ -74,19 +80,36 @@ public class DialogCellController extends AbstractController{
     }
 
     private void onOkButtonClick() {
-        cell.setAuditory1(this.panel4PartController1.getAuditory());
-        cell.setAuditory2(this.panel4PartController2.getAuditory());
-        cell.setAuditory3(this.panel4PartController3.getAuditory());
-        cell.setAuditory4(this.panel4PartController4.getAuditory());
+        if (panel4PartController1.isReady() && panel4PartController2.isReady() &&
+                panel4PartController3.isReady() && panel4PartController4.isReady()) {
+            cell.setAuditory1(this.panel4PartController1.getAuditory());
+            cell.setAuditory2(this.panel4PartController2.getAuditory());
+            cell.setAuditory3(this.panel4PartController3.getAuditory());
+            cell.setAuditory4(this.panel4PartController4.getAuditory());
 
-        cell.setSubject1(this.panel4PartController1.getSubject());
-        cell.setSubject2(this.panel4PartController2.getSubject());
-        cell.setSubject3(this.panel4PartController3.getSubject());
-        cell.setSubject4(this.panel4PartController4.getSubject());
+            cell.setSubject1(this.panel4PartController1.getSubject());
+            cell.setSubject2(this.panel4PartController2.getSubject());
+            cell.setSubject3(this.panel4PartController3.getSubject());
+            cell.setSubject4(this.panel4PartController4.getSubject());
 
-        System.out.println(cell);
-        dataModel.saveCell(cell);
-        view.dispose();
+            if(!this.isEdit) {
+                dataModel.saveCell(cell);
+                this.isSuccess = true;
+                view.dispose();
+            } else {
+                dataModel.editCell(cell);
+                this.isSuccess = true;
+                view.dispose();
+            }
+
+          /*  try {
+                dataModel.saveCell(cell);
+                this.isSuccess = true;
+                view.dispose();
+            } catch (Exception e) {
+                System.out.println(e);
+            }   */
+        }
     }
 
     public boolean isSuccess() {

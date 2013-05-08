@@ -65,16 +65,24 @@ public class DialogRaspisanieController extends AbstractController{
         @Override
         public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2) {
-                String grName = ((DayTable) e.getComponent()).getColumnName(((DayTable) e.getComponent()).getSelectedColumn());
-                Groups group = dataModel.getGroup(grName);
-                String day = ((DayTable) e.getComponent()).getDay();
-                int trainingNum = ((DayTable) e.getComponent()).getSelectedRow();
-                Cell cell = new Cell();
-                cell.setDay(day);
-                cell.setTrainingNum(trainingNum);
-                cell.setGroupsId(group);
-                System.out.println(cell.getDay() + " " + cell.getTrainingNum() + " " + cell.getGroupsId());
-                DialogCellController dialogCellController = new DialogCellController(false, cell);
+                DialogCellController dialogCellController = null;
+                if(((DayTable) e.getComponent()).getModel().getValueAt(((DayTable) e.getComponent()).getSelectedRow(), ((DayTable) e.getComponent()).getSelectedColumn()) instanceof Cell){
+                    Cell currCell = (Cell) ((DayTable) e.getComponent()).getModel().getValueAt(((DayTable) e.getComponent()).getSelectedRow(), ((DayTable) e.getComponent()).getSelectedColumn());
+                    System.out.println(currCell.getId());
+                    dialogCellController = new DialogCellController(true, currCell);
+                } else {
+                    String grName = ((DayTable) e.getComponent()).getColumnName(((DayTable) e.getComponent()).getSelectedColumn());
+                    Groups group = dataModel.getGroup(grName);
+                    String day = ((DayTable) e.getComponent()).getDay();
+                    int trainingNum = ((DayTable) e.getComponent()).getSelectedRow();
+                    Cell cell = new Cell();
+                    cell.setDay(day);
+                    cell.setTrainingNum(trainingNum);
+                    cell.setGroupsId(group);
+                    System.out.println(cell.getDay() + " " + cell.getTrainingNum() + " " + cell.getGroupsId());
+                    dialogCellController = new DialogCellController(false, cell);
+
+                }
                 if(dialogCellController.isSuccess()) {
                     repaintTables();
                 }
