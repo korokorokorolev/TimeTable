@@ -46,6 +46,19 @@ public class DialogCellController extends AbstractController{
             panel4PartController3 = new Panel4PartController(view.getPanel4Part3(), cell.getSubject3(), cell.getAuditory3());
             panel4PartController4 = new Panel4PartController(view.getPanel4Part4(), cell.getSubject4(), cell.getAuditory4());
         }
+        initInfo();
+    }
+
+    private void initInfo() {
+        view.getjListTeachersChFreedom().setModel(dataModel.getTeachersChFreedomModel(cell));
+        view.getjListTeachersChEmpl().setModel(dataModel.getTeachersChEmplModel(cell));
+        view.getjListAudChEmpl().setModel(dataModel.getAudChEmplModel(cell));
+        view.getjListAudChFreedom().setModel(dataModel.getAudChFreedomModel(cell));
+
+        view.getjListTeachersZnEmpl().setModel(dataModel.getTeachersZnEmplModel(cell));
+        view.getjListTeachersZnFreedom().setModel(dataModel.getTeachersZnFreedomModel(cell));
+        view.getjListAudZnEmpl().setModel(dataModel.getAudZnEmplModel(cell));
+        view.getjListAudZnFreedom().setModel(dataModel.getAudZnFreedomModel(cell));
     }
 
     @Override
@@ -108,6 +121,29 @@ public class DialogCellController extends AbstractController{
                 onButton34CLick();
             }
         });
+        view.getjButtonTest().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onTestButtonClick();
+            }
+        });
+    }
+
+    private void onTestButtonClick() {
+        Cell cellCopy = new Cell(cell.getId(), cell.getDay(), cell.getTrainingNum());
+        if(cellCopy.getId() == null) {
+            cellCopy.setId(-1);
+        }
+        cellCopy.setAuditory1(panel4PartController1.getAuditory());
+        cellCopy.setAuditory2(panel4PartController2.getAuditory());
+        cellCopy.setAuditory3(panel4PartController3.getAuditory());
+        cellCopy.setAuditory4(panel4PartController4.getAuditory());
+
+        cellCopy.setSubject1(panel4PartController1.getSubject());
+        cellCopy.setSubject2(panel4PartController2.getSubject());
+        cellCopy.setSubject3(panel4PartController3.getSubject());
+        cellCopy.setSubject4(panel4PartController4.getSubject());
+        view.getjLabelTest().setText(dataModel.getStatusCurrentSituation(cellCopy));
     }
 
     private void onButton34CLick() {

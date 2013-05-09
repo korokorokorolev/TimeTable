@@ -4,7 +4,9 @@ import ru.akorolev.databaseaccess.DAO;
 import ru.akorolev.databaseaccess.DAOImplementation;
 import ru.akorolev.entities.Cell;
 import ru.akorolev.entities.Conflict;
+import ru.akorolev.models.ListModelImplementation;
 
+import javax.swing.*;
 import java.util.List;
 
 /**
@@ -18,7 +20,9 @@ public class DialogCellDataModel {
     DAO dao = DAOImplementation.getInstance();
 
     public void saveCell(Cell cell) {
+        System.out.println(cell.getId());
         dao.saveCell(cell);
+        System.out.println(cell.getId());
         findAndSetupConflicts(cell);
     }
 
@@ -37,4 +41,80 @@ public class DialogCellDataModel {
         dao.editCell(cell);
         findAndSetupConflicts(cell);
     }
-}
+
+    public ListModel getTeachersChFreedomModel(Cell cell) {
+        return new ListModelImplementation(getTeachersChFreedom(cell));
+    }
+
+    private List getTeachersChFreedom(Cell cell) {
+        return dao.getFreedomTeachersCh(cell);
+    }
+
+    public ListModel getTeachersChEmplModel(Cell cell) {
+        return new ListModelImplementation(getTeachersChEmpl(cell));
+    }
+
+    private List getTeachersChEmpl(Cell cell) {
+        return dao.getByssyTeachersCh(cell);
+    }
+
+    public ListModel getAudChFreedomModel(Cell cell) {
+        return new ListModelImplementation(getAudChFreedom(cell));
+    }
+
+    private List getAudChFreedom(Cell cell) {
+        return dao.getFreedomAuditoriesCh(cell);
+    }
+
+    public ListModel getAudChEmplModel(Cell cell) {
+        return new ListModelImplementation(getAudChEmpl(cell));
+    }
+
+    private List getAudChEmpl(Cell cell) {
+        return dao.getBussyAuditorinesCh(cell);
+    }
+
+    public ListModel getTeachersZnEmplModel(Cell cell) {
+        return new ListModelImplementation(getTeachersZnEmpl(cell));
+    }
+
+    private List getTeachersZnEmpl(Cell cell) {
+        return dao.getByssyTeachersZn(cell);
+    }
+
+    public ListModel getTeachersZnFreedomModel(Cell cell) {
+        return new ListModelImplementation(getTeachersZnFreedom(cell));
+    }
+
+    private List getTeachersZnFreedom(Cell cell) {
+        return dao.getFreedomTeachersZn(cell);
+    }
+
+    public ListModel getAudZnEmplModel(Cell cell) {
+        return new ListModelImplementation(getAudZnEmpl(cell));
+    }
+
+    private List getAudZnEmpl(Cell cell) {
+        return dao.getBussyAuditorinesZn(cell);
+    }
+
+    public ListModel getAudZnFreedomModel(Cell cell) {
+        return new ListModelImplementation(getAudZnFreedom(cell));
+    }
+
+    private List getAudZnFreedom(Cell cell) {
+        return dao.getFreedomAuditoriesZn(cell);
+    }
+
+    public String getStatusCurrentSituation(Cell cellCopy) {
+        List<Cell> potentialConflicts = dao.getCellsLine(cellCopy.getDay(), cellCopy.getTrainingNum());
+        String res = "";
+        for (Cell cell : potentialConflicts) {
+            if (cell.equalsCell(cellCopy)) {
+                res += cell.getGroupsId().toString() + "; ";
+                System.out.println(cell);
+            }
+        }
+            return res;
+        }
+    }
