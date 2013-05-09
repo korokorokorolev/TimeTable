@@ -8,6 +8,8 @@ import ru.akorolev.formsDataModels.DialogRaspisanieDataModel;
 import ru.akorolev.staticsVariables.Days;
 import ru.akorolev.widgets.DayTable;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -121,5 +123,17 @@ public class DialogRaspisanieController extends AbstractController{
         view.getDayTable4().setDay(Days.THURSDAY);
         view.getDayTable5().setDay(Days.FRIDAY);
         view.getDayTable6().setDay(Days.SATURDAY);
+
+        view.getjMenuItem1().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onShowConflictsClick();
+            }
+        });
+    }
+
+    private void onShowConflictsClick() {
+        DialogConflictsController dialogConflictsController = new DialogConflictsController();
+        repaintTables();
     }
 }

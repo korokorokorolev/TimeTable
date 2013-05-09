@@ -115,6 +115,9 @@ public class DialogCellDataModel {
                 System.out.println(cell);
             }
         }
-            return res;
+        if(res.equals("")) {
+            return "Конфликтных ситуаций не выявлено";
+        }
+            return "Существует конфликт с группами: " +  res;
         }
     }
