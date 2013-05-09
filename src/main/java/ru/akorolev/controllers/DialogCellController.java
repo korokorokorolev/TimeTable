@@ -41,7 +41,6 @@ public class DialogCellController extends AbstractController{
             panel4PartController3 = new Panel4PartController(view.getPanel4Part3());
             panel4PartController4 = new Panel4PartController(view.getPanel4Part4());
         } else {
-//            Add start values to constructor
             panel4PartController1 = new Panel4PartController(view.getPanel4Part1(), cell.getSubject1(), cell.getAuditory1());
             panel4PartController2 = new Panel4PartController(view.getPanel4Part2(), cell.getSubject2(), cell.getAuditory2());
             panel4PartController3 = new Panel4PartController(view.getPanel4Part3(), cell.getSubject3(), cell.getAuditory3());
@@ -79,6 +78,69 @@ public class DialogCellController extends AbstractController{
                 onOkButtonClick();
             }
         });
+        view.getjButtonAll().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onAllButtonClick();
+            }
+        });
+        view.getjButton12().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onButton12Click();
+            }
+        });
+        view.getjButton13().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onButton13Click();
+            }
+        });
+        view.getjButton24().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onButton24Click();
+            }
+        });
+        view.getjButton34().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onButton34CLick();
+            }
+        });
+    }
+
+    private void onButton34CLick() {
+        if(panel4PartController3 != null && panel4PartController4 != null) {
+            panel4PartController4.setupTSA(panel4PartController3.getSubject(), panel4PartController3.getAuditory());
+        }
+    }
+
+    private void onButton24Click() {
+        if(panel4PartController2 != null && panel4PartController4 != null) {
+            panel4PartController4.setupTSA(panel4PartController2.getSubject(), panel4PartController2.getAuditory());
+        }
+    }
+
+    private void onButton13Click() {
+        if(panel4PartController1 != null && panel4PartController3 != null) {
+            panel4PartController3.setupTSA(panel4PartController1.getSubject(), panel4PartController1.getAuditory());
+        }
+    }
+
+    private void onButton12Click() {
+        if(panel4PartController1 != null && panel4PartController2 != null) {
+            panel4PartController2.setupTSA(panel4PartController1.getSubject(), panel4PartController1.getAuditory());
+        }
+    }
+
+    private void onAllButtonClick() {
+        if(panel4PartController1 != null && panel4PartController2 != null
+                && panel4PartController3 != null && panel4PartController4 != null) {
+            panel4PartController2.setupTSA(panel4PartController1.getSubject(), panel4PartController1.getAuditory());
+            panel4PartController3.setupTSA(panel4PartController1.getSubject(), panel4PartController1.getAuditory());
+            panel4PartController4.setupTSA(panel4PartController1.getSubject(), panel4PartController1.getAuditory());
+        }
     }
 
     private void onOkButtonClick() {

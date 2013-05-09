@@ -88,4 +88,19 @@ public class Panel4PartController {
         }
     }
 
+    public void setupTSA(Subject subject, Auditory auditory) {
+        if(subject != null) {
+            this.panel4Part.getjComboBoxTeacher().setSelectedItem(subject.getTeacherId());
+            onComboBoxTeachersChange();
+            this.panel4Part.getjComboBoxSubject().setSelectedItem(subject);
+            this.panel4Part.getjComboBoxAuditory().setModel(dataModel.getAuditoriesModel());
+            this.panel4Part.getjComboBoxAuditory().setSelectedItem(auditory);
+        } else  {
+            this.panel4Part.getjComboBoxTeacher().setSelectedItem(null);
+            this.panel4Part.getjComboBoxSubject().setSelectedItem(null);
+            this.panel4Part.getjComboBoxAuditory().setModel(dataModel.getAuditoriesModel());
+            this.panel4Part.getjComboBoxAuditory().setSelectedItem(auditory);
+        }
+    }
+
 }
