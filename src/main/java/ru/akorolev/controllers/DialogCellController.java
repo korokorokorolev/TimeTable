@@ -4,6 +4,7 @@ import ru.akorolev.entities.Cell;
 import ru.akorolev.forms.DialogCell;
 import ru.akorolev.formsDataModels.DialogCellDataModel;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -56,6 +57,7 @@ public class DialogCellController extends AbstractController{
     @Override
     void initView() {
         view = new DialogCell(null, true);
+        view.setMinimumSize(new Dimension(1000,600));
     }
 
     @Override
@@ -92,23 +94,20 @@ public class DialogCellController extends AbstractController{
             cell.setSubject3(this.panel4PartController3.getSubject());
             cell.setSubject4(this.panel4PartController4.getSubject());
 
-            if(!this.isEdit) {
-                dataModel.saveCell(cell);
-                this.isSuccess = true;
-                view.dispose();
-            } else {
-                dataModel.editCell(cell);
-                this.isSuccess = true;
-                view.dispose();
-            }
-
-          /*  try {
-                dataModel.saveCell(cell);
-                this.isSuccess = true;
-                view.dispose();
+            try {
+                if(!this.isEdit) {
+                    dataModel.saveCell(cell);
+                    this.isSuccess = true;
+                    view.dispose();
+                } else {
+                    dataModel.editCell(cell);
+                    this.isSuccess = true;
+                    view.dispose();
+                }
             } catch (Exception e) {
                 System.out.println(e);
-            }   */
+            }
+
         }
     }
 
