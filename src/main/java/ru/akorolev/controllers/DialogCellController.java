@@ -47,6 +47,9 @@ public class DialogCellController extends AbstractController{
             panel4PartController4 = new Panel4PartController(view.getPanel4Part4(), cell.getSubject4(), cell.getAuditory4());
         }
         initInfo();
+
+        String title ="Группа: " + cell.getGroupsId() + " День: " + cell.getDay() + " Номер занятия: " + cell.getTrainingNum() + 1;
+        view.setTitle(title);
     }
 
     private void initInfo() {
