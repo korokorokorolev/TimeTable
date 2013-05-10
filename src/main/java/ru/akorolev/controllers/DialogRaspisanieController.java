@@ -5,13 +5,18 @@ import ru.akorolev.entities.Groups;
 import ru.akorolev.entities.TrainingFeed;
 import ru.akorolev.forms.DialogRaspisanie;
 import ru.akorolev.formsDataModels.DialogRaspisanieDataModel;
+import ru.akorolev.printer.Printer;
 import ru.akorolev.staticsVariables.Days;
 import ru.akorolev.widgets.DayTable;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.FileNotFoundException;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -130,6 +135,23 @@ public class DialogRaspisanieController extends AbstractController{
                 onShowConflictsClick();
             }
         });
+        view.getjMenuItemPrint().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onPrintClick();
+            }
+        });
+    }
+
+    private void onPrintClick() {
+        List cells = dataModel.getCellsFromTF(trainingFeed);
+        System.out.println(cells);
+        Printer printer = new Printer(cells,trainingFeed);
+        try {
+            printer.print();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
     }
 
     private void onShowConflictsClick() {

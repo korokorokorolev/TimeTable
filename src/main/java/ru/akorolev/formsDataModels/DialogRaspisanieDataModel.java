@@ -71,6 +71,10 @@ public class DialogRaspisanieDataModel {
         return dao.getGroupByName(grName);
     }
 
+    public List getCellsFromTF(TrainingFeed trainingFeed) {
+        return dao.getCellsFromTF(trainingFeed);
+    }
+
     public interface OnModelChangeListener {
         public void onCellEdit();
         public void onCellAdded();
