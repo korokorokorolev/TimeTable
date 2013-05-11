@@ -83,11 +83,6 @@ public class DialogTeachersEmploymentController extends AbstractController{
         }
     }
 
-    private void printAll() {
-
-    }
-
-
     private void onTeacherChange() {
         switch (view.getjComboBoxChZn().getSelectedIndex()) {
             case 0: {
@@ -113,6 +108,7 @@ public class DialogTeachersEmploymentController extends AbstractController{
             view.getjTable4().setModel(dataModel.getTableAllModel(Days.THURSDAY, (Teacher)view.getjComboBoxTeacher().getSelectedItem()));
             view.getjTable5().setModel(dataModel.getTableAllModel(Days.FRIDAY, (Teacher)view.getjComboBoxTeacher().getSelectedItem()));
             view.getjTable6().setModel(dataModel.getTableAllModel(Days.SATURDAY, (Teacher)view.getjComboBoxTeacher().getSelectedItem()));
+            setColumnsWidth();
         }
     }
 
@@ -124,6 +120,7 @@ public class DialogTeachersEmploymentController extends AbstractController{
             view.getjTable4().setModel(dataModel.getTableZnModel(Days.THURSDAY, (Teacher) view.getjComboBoxTeacher().getSelectedItem()));
             view.getjTable5().setModel(dataModel.getTableZnModel(Days.FRIDAY, (Teacher) view.getjComboBoxTeacher().getSelectedItem()));
             view.getjTable6().setModel(dataModel.getTableZnModel(Days.SATURDAY, (Teacher) view.getjComboBoxTeacher().getSelectedItem()));
+            setColumnsWidth();
         }
     }
 
@@ -135,6 +132,16 @@ public class DialogTeachersEmploymentController extends AbstractController{
             view.getjTable4().setModel(dataModel.getTableChModel(Days.THURSDAY, (Teacher)view.getjComboBoxTeacher().getSelectedItem()));
             view.getjTable5().setModel(dataModel.getTableChModel(Days.FRIDAY, (Teacher)view.getjComboBoxTeacher().getSelectedItem()));
             view.getjTable6().setModel(dataModel.getTableChModel(Days.SATURDAY, (Teacher)view.getjComboBoxTeacher().getSelectedItem()));
+            setColumnsWidth();
         }
+    }
+    private void setColumnsWidth() {
+        view.getjTable1().getColumnModel().getColumn(0).setMaxWidth(20);
+        view.getjTable2().getColumnModel().getColumn(0).setMaxWidth(20);
+        view.getjTable3().getColumnModel().getColumn(0).setMaxWidth(20);
+        view.getjTable4().getColumnModel().getColumn(0).setMaxWidth(20);
+        view.getjTable5().getColumnModel().getColumn(0).setMaxWidth(20);
+        view.getjTable6().getColumnModel().getColumn(0).setMaxWidth(20);
+
     }
 }

@@ -88,6 +88,16 @@ public class MainWindowController extends AbstractController{
                 onTeachersEmploymentClick();
             }
         });
+        mainWindow.getjMenuItemAuditoryEmployment().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onAuditopryEmploymentClick();
+            }
+        });
+    }
+
+    private void onAuditopryEmploymentClick() {
+        DialogAuditoriesEmploymentController dialogAuditoriesEmploymentController = new DialogAuditoriesEmploymentController();
     }
 
     private void onTeachersEmploymentClick() {
