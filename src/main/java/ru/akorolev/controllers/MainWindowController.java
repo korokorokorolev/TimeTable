@@ -82,6 +82,17 @@ public class MainWindowController extends AbstractController{
                 onEditButtonClick();
             }
         });
+        mainWindow.getjMenuItemTeachersEmployment().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onTeachersEmploymentClick();
+            }
+        });
+    }
+
+    private void onTeachersEmploymentClick() {
+        DialogTeachersEmploymentController dialogTeachersEmploymentController = new DialogTeachersEmploymentController();
+
     }
 
     private void onEditButtonClick() {

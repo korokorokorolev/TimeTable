@@ -1,8 +1,7 @@
 package ru.akorolev.printer;
 
 import ru.akorolev.entities.Cell;
-import ru.akorolev.entities.Groups;
-import ru.akorolev.entities.TrainingFeed;
+import ru.akorolev.entities.Teacher;
 import ru.akorolev.staticsVariables.Days;
 
 import java.io.FileNotFoundException;
@@ -13,28 +12,26 @@ import java.util.List;
 /**
  * Created with IntelliJ IDEA.
  * User: alex
- * Date: 10.05.13
- * Time: 10:46
+ * Date: 11.05.13
+ * Time: 9:36
  * To change this template use File | Settings | File Templates.
  */
-public class Printer {
+public class PrintTeacher {
     List<Cell> cells;
-    TrainingFeed trainingFeed;
+    Teacher teacher;
     PrintStream printStream;
 
-    public Printer(List<Cell> cells, TrainingFeed trainingFeed) {
+    public PrintTeacher(List<Cell> cells, Teacher teacher) {
         this.cells = cells;
-        this.trainingFeed = trainingFeed;
-
+        this.teacher = teacher;
     }
     public void print() throws FileNotFoundException {
-        printStream = new PrintStream(trainingFeed.getName() + ".html");
+        printStream = new PrintStream(teacher.getName() + ".html");
         printStream.println("<html>");
         printStream.println("<head>");
         printStream.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">");
         printStream.println("</meta>");
         printStream.println("</head>");
-        printGroups();
         printDay(Days.MONDAY);
         printDay(Days.TUESDAY);
         printDay(Days.WEDNESDAY);
@@ -42,18 +39,6 @@ public class Printer {
         printDay(Days.FRIDAY);
         printDay(Days.SATURDAY);
         printStream.println("</html>");
-    }
-
-    private void printGroups() {
-        printStream.println("<table border=4 width=\"100%\">");
-        printStream.println("<tr>");
-        printStream.println("<td width=\"1%\" border=0>");
-        printStream.println("</td>");
-        for(Groups g: trainingFeed.getGroupsList()) {
-            printStream.println("<td>" + g + "</td>");
-        }
-        printStream.println("</tr>");
-        printStream.println("</table>");
     }
 
     private List<Cell> getDayCells(String day) {
@@ -66,29 +51,27 @@ public class Printer {
         }
         return res;
     }
+
     private void printDay(String day) {
         printStream.println(day);
         printStream.println("<table border=4 width=\"100%\">");
+        List<Cell> dayCells = getDayCells(day);
         for (int i = 0; i < 5; i++) {
             printStream.println("<tr>");
             printStream.println("<td width=\"1%\">");
             printStream.println(i + 1);
             printStream.println("</td>");
-            for(Groups g: trainingFeed.getGroupsList()) {
-                printStream.println("<td width=\"33%\">");
-                List<Cell> dayCells = getDayCells(day);
-                for(Cell cell : dayCells) {
-                    if(cell.getGroupsId().equals(g) && cell.getTrainingNum() == i) {
-                        printStream.println(cell);
-                        break;
-                    }
+
+            printStream.println("<td width=\"99%\">");
+            for(Cell cell : dayCells) {
+                if(cell.getTrainingNum() == i) {
+                    printStream.println(cell + " " + cell.getGroupsId());
                 }
-                printStream.println("</td>");
             }
+            printStream.println("</td>");
+
             printStream.println("</tr>");
         }
         printStream.println("</table>");
     }
-
-
 }

@@ -50,6 +50,11 @@ public class DialogRaspisanieController extends AbstractController{
         view.getDayTable6().setModel(dataModel.getDayTableModel(Days.SATURDAY, trainingFeed));
 
         view.getDayTable1().setDefaultRenderer(Object.class, dataModel.getRenderer(Days.MONDAY, trainingFeed));
+        view.getDayTable2().setDefaultRenderer(Object.class, dataModel.getRenderer(Days.TUESDAY, trainingFeed));
+        view.getDayTable3().setDefaultRenderer(Object.class, dataModel.getRenderer(Days.WEDNESDAY, trainingFeed));
+        view.getDayTable4().setDefaultRenderer(Object.class, dataModel.getRenderer(Days.THURSDAY, trainingFeed));
+        view.getDayTable5().setDefaultRenderer(Object.class, dataModel.getRenderer(Days.FRIDAY, trainingFeed));
+        view.getDayTable6().setDefaultRenderer(Object.class, dataModel.getRenderer(Days.SATURDAY, trainingFeed));
     }
 
     @Override
