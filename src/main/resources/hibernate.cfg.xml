@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.connection.driver_class">org.sqlite.JDBC</property>
+    <property name="hibernate.connection.url">jdbc:sqlite:c://dyplom_result/TIME_TABLE.sqlite</property>
+    <property name="hibernate.dialect">dialect.SQLiteDialect</property>
+    <property name="hibernate.show_sql">false</property>
+    <property name="hibernate.format_sql">true</property>
+    <mapping class="ru.akorolev.entities.Auditory"/>
+    <mapping class="ru.akorolev.entities.Cell"/>
+    <mapping class="ru.akorolev.entities.Conflict"/>
+    <mapping class="ru.akorolev.entities.Groups"/>
+    <mapping class="ru.akorolev.entities.Subject"/>
+    <mapping class="ru.akorolev.entities.Teacher"/>
+    <mapping class="ru.akorolev.entities.TrainingFeed"/>
+  </session-factory>
+</hibernate-configuration>
