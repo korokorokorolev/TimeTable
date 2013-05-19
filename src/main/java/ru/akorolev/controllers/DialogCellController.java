@@ -48,7 +48,7 @@ public class DialogCellController extends AbstractController{
         }
         initInfo();
 
-        String title ="Группа: " + cell.getGroupsId() + " День: " + cell.getDay() + " Номер занятия: " + cell.getTrainingNum() + 1;
+        String title ="Группа: " + cell.getGroupsId() + " День: " + cell.getDay() + " Номер занятия: " + (cell.getTrainingNum() + 1);
         view.setTitle(title);
     }
 

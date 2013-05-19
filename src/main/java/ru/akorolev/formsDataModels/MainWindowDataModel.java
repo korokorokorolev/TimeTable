@@ -9,19 +9,25 @@ import javax.swing.*;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: alex
- * Date: 06.05.13
- * Time: 16:40
- * To change this template use File | Settings | File Templates.
+ * Класс-модель данных для стартового окна приложения
  */
 public class MainWindowDataModel {
     private DAO dao = DAOImplementation.getInstance();
     private  OnChangeListener listener;
 
+    /**
+     * Метод установки слушателя изменений
+     * @param listener слушатель изменений
+     */
     public void setListener(OnChangeListener listener) {
         this.listener = listener;
     }
+
+    /**
+     * Метод получения списка учебных потоков в виде,
+     * необходимом для отображения
+     * @return список учебных потоков
+     */
     public ListModel getTrainingFeedsModel() {
         return new ListModelImplementation(this.getTrainingFeeds());
     }
@@ -30,12 +36,20 @@ public class MainWindowDataModel {
         return dao.getTrainingFeeds();
     }
 
+    /**
+     *  Удаление учебного потока
+     * @param trainingFeed учебный поток
+     */
     public void remTrainingFeed(TrainingFeed trainingFeed) {
         dao.removeTrainingFeed(trainingFeed);
         if(listener != null) {
             listener.onTrainingFeedRemoved();
         }
     }
+
+    /**
+     * Интерфей слушателя изменений модели данных
+     */
     public interface OnChangeListener{
         public void onTrainingFeedRemoved();
     }

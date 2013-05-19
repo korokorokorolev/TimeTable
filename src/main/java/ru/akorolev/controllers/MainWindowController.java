@@ -8,26 +8,44 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Created with IntelliJ IDEA.
- * User: alex
- * Date: 04.05.13
- * Time: 11:43
- * To change this template use File | Settings | File Templates.
+ * Класс-контроллер для стартового окна приложения
  */
 public class MainWindowController extends AbstractController{
     private MainWindow mainWindow;
     private MainWindowDataModel dataModel;
 
+    /**
+     * Конструктор вызывает родительский кончтруктор для
+     * инициализации полей класса
+     */
     public MainWindowController() {
         super();
     }
 
+    /**
+     * Создание модели данных
+     */
     @Override
     void initDataModel() {
         dataModel = new MainWindowDataModel();
     }
 
-    private void regDatListeners() {
+    /**
+     * Создание, настройки и запуск стартового окна
+     */
+    @Override
+    void initView() {
+        mainWindow = new MainWindow();
+        mainWindow.getjListTrainingFeeds().setModel(dataModel.getTrainingFeedsModel());
+        mainWindow.setVisible(true);
+        mainWindow.setTitle("Расписание факультета ИВТ");
+    }
+
+    /**
+     * Регистрация слушателя модели данных
+     */
+    @Override
+    void regDataListeners() {
         this.dataModel.setListener(new MainWindowDataModel.OnChangeListener() {
             @Override
             public void onTrainingFeedRemoved() {
@@ -36,20 +54,10 @@ public class MainWindowController extends AbstractController{
             }
         });
     }
-    @Override
-    void initView() {
-        mainWindow = new MainWindow();
-        mainWindow.getjListTrainingFeeds().setModel(dataModel.getTrainingFeedsModel());
-        mainWindow.setVisible(true);
-        mainWindow.setTitle("Расписание факультета ИВТ");
 
-    }
-
-    @Override
-    void regDataListeners() {
-        regDatListeners();
-    }
-
+    /**
+     * Регистрация слушателей визуальных элементов формы
+     */
     @Override
     void regListeners() {
         mainWindow.getjMenuItemTeachersAndSubjects().addActionListener(new ActionListener() {
@@ -95,7 +103,6 @@ public class MainWindowController extends AbstractController{
             }
         });
     }
-
     private void onAuditopryEmploymentClick() {
         DialogAuditoriesEmploymentController dialogAuditoriesEmploymentController = new DialogAuditoriesEmploymentController();
     }
