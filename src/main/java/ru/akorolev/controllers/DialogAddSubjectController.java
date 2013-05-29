@@ -47,6 +47,12 @@ public class DialogAddSubjectController extends AbstractController{
                 onOkButtonClick();
             }
         });
+        view.getjButtonCancel().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                view.dispose();
+            }
+        });
     }
 
     private void onOkButtonClick() {

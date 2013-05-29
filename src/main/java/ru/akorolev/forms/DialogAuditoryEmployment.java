@@ -19,6 +19,7 @@ public class DialogAuditoryEmployment extends javax.swing.JDialog {
     public DialogAuditoryEmployment(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setTitle("Занятость аудиторий");
     }
 
     public JComboBox getjComboBoxAuditory() {

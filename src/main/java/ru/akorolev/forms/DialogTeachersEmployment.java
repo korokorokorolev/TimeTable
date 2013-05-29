@@ -20,6 +20,7 @@ public class DialogTeachersEmployment extends javax.swing.JDialog {
     public DialogTeachersEmployment(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setTitle("Занятость преподавателей");
     }
 
     public JComboBox getjComboBoxChZn() {
