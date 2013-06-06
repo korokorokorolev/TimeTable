@@ -72,8 +72,12 @@ public class DAOImplementation implements DAO {
         getNewSession();
         try {
             session.beginTransaction();
-            Teacher t = (Teacher) session.load(Teacher.class, teacher.getId());
-            session.delete(t);
+            System.out.println(teacher.getSubjectList());
+//            Teacher t = (Teacher) session.load(Teacher.class, teacher.getId());
+            for(Subject subject : teacher.getSubjectList()) {
+                removeSubjectWithoutSession(subject);
+            }
+            session.delete(teacher);
             session.getTransaction().commit();
         } catch (Exception e) {
             System.out.println(e);
@@ -103,10 +107,38 @@ public class DAOImplementation implements DAO {
         }
     }
 
+    public void removeSubjectWithoutSession(Subject subject) {
+            session.createQuery("delete from Conflict where cell1 in (from Cell where subject1=:idS)").setParameter("idS", subject).executeUpdate();
+            session.createQuery("delete from Conflict where cell2 in (from Cell where subject1=:idS)").setParameter("idS", subject).executeUpdate();
+            session.createQuery("delete from Conflict where cell1 in (from Cell where subject2=:idS)").setParameter("idS", subject).executeUpdate();
+            session.createQuery("delete from Conflict where cell2 in (from Cell where subject2=:idS)").setParameter("idS", subject).executeUpdate();
+            session.createQuery("delete from Conflict where cell1 in (from Cell where subject3=:idS)").setParameter("idS", subject).executeUpdate();
+            session.createQuery("delete from Conflict where cell2 in (from Cell where subject3=:idS)").setParameter("idS", subject).executeUpdate();
+            session.createQuery("delete from Conflict where cell1 in (from Cell where subject4=:idS)").setParameter("idS", subject).executeUpdate();
+            session.createQuery("delete from Conflict where cell2 in (from Cell where subject4=:idS)").setParameter("idS", subject).executeUpdate();
+            session.createQuery("delete from Cell where subject1=:idS").setParameter("idS", subject).executeUpdate();
+            session.createQuery("delete from Cell where subject2=:idS").setParameter("idS", subject).executeUpdate();
+            session.createQuery("delete from Cell where subject3=:idS").setParameter("idS", subject).executeUpdate();
+            session.createQuery("delete from Cell where subject4=:idS").setParameter("idS", subject).executeUpdate();
+            session.delete(subject);
+    }
+
     public void removeSubject(Subject subject) {
         getNewSession();
         try {
             session.beginTransaction();
+            session.createQuery("delete from Conflict where cell1 in (from Cell where subject1=:idS)").setParameter("idS", subject).executeUpdate();
+            session.createQuery("delete from Conflict where cell2 in (from Cell where subject1=:idS)").setParameter("idS", subject).executeUpdate();
+            session.createQuery("delete from Conflict where cell1 in (from Cell where subject2=:idS)").setParameter("idS", subject).executeUpdate();
+            session.createQuery("delete from Conflict where cell2 in (from Cell where subject2=:idS)").setParameter("idS", subject).executeUpdate();
+            session.createQuery("delete from Conflict where cell1 in (from Cell where subject3=:idS)").setParameter("idS", subject).executeUpdate();
+            session.createQuery("delete from Conflict where cell2 in (from Cell where subject3=:idS)").setParameter("idS", subject).executeUpdate();
+            session.createQuery("delete from Conflict where cell1 in (from Cell where subject4=:idS)").setParameter("idS", subject).executeUpdate();
+            session.createQuery("delete from Conflict where cell2 in (from Cell where subject4=:idS)").setParameter("idS", subject).executeUpdate();
+            session.createQuery("delete from Cell where subject1=:idS").setParameter("idS", subject).executeUpdate();
+            session.createQuery("delete from Cell where subject2=:idS").setParameter("idS", subject).executeUpdate();
+            session.createQuery("delete from Cell where subject3=:idS").setParameter("idS", subject).executeUpdate();
+            session.createQuery("delete from Cell where subject4=:idS").setParameter("idS", subject).executeUpdate();
             session.delete(subject);
             session.getTransaction().commit();
         } catch (Exception e) {
