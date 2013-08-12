@@ -259,6 +259,7 @@ public class Cell implements Serializable {
     }
 
     public boolean equalsCell(Cell other) {
+        //Одна и та же ячейка
         if(this.getId().equals(other.getId())) {
             return false;
         }
@@ -290,28 +291,28 @@ public class Cell implements Serializable {
         }
         
         if(this.subject1 != null) {
-            if(this.subject1.equals(other.getSubject1())
-                || this.subject1.equals(other.getSubject2())) {
+            if(this.subject1.equalsTeachers(other.getSubject1())
+                || this.subject1.equalsTeachers(other.getSubject2())) {
                 return true;
             }
         }
         
         if(this.subject2 != null) {
-            if(this.subject2.equals(other.getSubject1())
-                || this.subject2.equals(other.getSubject2())) {                
+            if(this.subject2.equalsTeachers(other.getSubject1())
+                || this.subject2.equalsTeachers(other.getSubject2())) {
                 return true;
             }
         }
         
         if(this.subject3 != null) {
-            if(this.subject3.equals(other.getSubject3())
-                || this.subject3.equals(other.getSubject4())) {
+            if(this.subject3.equalsTeachers(other.getSubject3())
+                || this.subject3.equalsTeachers(other.getSubject4())) {
                 return true;
             }
         }
         if(this.subject4 != null) {
-            if(this.subject4.equals(other.getSubject3())
-                || this.subject4.equals(other.getSubject4())) {
+            if(this.subject4.equalsTeachers(other.getSubject3())
+                || this.subject4.equalsTeachers(other.getSubject4())) {
                 return true;
             }
         }

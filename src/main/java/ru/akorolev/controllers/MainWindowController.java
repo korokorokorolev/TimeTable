@@ -3,9 +3,13 @@ package ru.akorolev.controllers;
 import ru.akorolev.entities.TrainingFeed;
 import ru.akorolev.forms.MainWindow;
 import ru.akorolev.formsDataModels.MainWindowDataModel;
+import ru.akorolev.informer.Informer;
+import ru.akorolev.printer.Printer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.util.List;
 
 /**
  * Класс-контроллер для стартового окна приложения
@@ -102,7 +106,28 @@ public class MainWindowController extends AbstractController{
                 onAuditopryEmploymentClick();
             }
         });
+        mainWindow.getjMenuItemPrint().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                print();
+            }
+        });
     }
+
+    private void print() {
+        if(this.mainWindow.getjListTrainingFeeds().getSelectedValue() != null) {
+            List cells = dataModel.getCellsFromTF((TrainingFeed)this.mainWindow.getjListTrainingFeeds().getSelectedValue());
+            System.out.println(cells);
+            Printer printer = new Printer(cells,(TrainingFeed)this.mainWindow.getjListTrainingFeeds().getSelectedValue());
+            try {
+                printer.print();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                new Informer(null, true, "Проблемы").setVisible(true);
+            }
+        }
+    }
+
     private void onAuditopryEmploymentClick() {
         DialogAuditoriesEmploymentController dialogAuditoriesEmploymentController = new DialogAuditoriesEmploymentController();
     }

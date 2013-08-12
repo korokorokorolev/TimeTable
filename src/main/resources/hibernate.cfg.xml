@@ -3,7 +3,7 @@
 <hibernate-configuration>
   <session-factory>
     <property name="hibernate.connection.driver_class">org.sqlite.JDBC</property>
-    <property name="hibernate.connection.url">jdbc:sqlite:/home/akorolev/IdeaProjects/TimeTable/TIME_TABLE.sqlite</property>
+    <property name="hibernate.connection.url">jdbc:sqlite:c://projects/TimeTable/TIME_TABLE.sqlite</property>
     <property name="hibernate.dialect">dialect.SQLiteDialect</property>
     <property name="hibernate.show_sql">false</property>
     <property name="hibernate.format_sql">true</property>

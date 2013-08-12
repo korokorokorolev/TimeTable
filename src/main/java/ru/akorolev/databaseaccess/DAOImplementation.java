@@ -107,7 +107,7 @@ public class DAOImplementation implements DAO {
         }
     }
 
-    public void removeSubjectWithoutSession(Subject subject) {
+    private void removeSubjectWithoutSession(Subject subject) {
             session.createQuery("delete from Conflict where cell1 in (from Cell where subject1=:idS)").setParameter("idS", subject).executeUpdate();
             session.createQuery("delete from Conflict where cell2 in (from Cell where subject1=:idS)").setParameter("idS", subject).executeUpdate();
             session.createQuery("delete from Conflict where cell1 in (from Cell where subject2=:idS)").setParameter("idS", subject).executeUpdate();
@@ -187,7 +187,22 @@ public class DAOImplementation implements DAO {
         getNewSession();
         try {
             session.beginTransaction();
+            //session.delete(auditory);
+            session.beginTransaction();
+            session.createQuery("delete from Conflict where cell1 in (from Cell where auditory1=:idS)").setParameter("idS", auditory).executeUpdate();
+            session.createQuery("delete from Conflict where cell2 in (from Cell where auditory1=:idS)").setParameter("idS", auditory).executeUpdate();
+            session.createQuery("delete from Conflict where cell1 in (from Cell where auditory2=:idS)").setParameter("idS", auditory).executeUpdate();
+            session.createQuery("delete from Conflict where cell2 in (from Cell where auditory2=:idS)").setParameter("idS", auditory).executeUpdate();
+            session.createQuery("delete from Conflict where cell1 in (from Cell where auditory3=:idS)").setParameter("idS", auditory).executeUpdate();
+            session.createQuery("delete from Conflict where cell2 in (from Cell where auditory3=:idS)").setParameter("idS", auditory).executeUpdate();
+            session.createQuery("delete from Conflict where cell1 in (from Cell where auditory4=:idS)").setParameter("idS", auditory).executeUpdate();
+            session.createQuery("delete from Conflict where cell2 in (from Cell where auditory4=:idS)").setParameter("idS", auditory).executeUpdate();
+            session.createQuery("delete from Cell where auditory1=:idS").setParameter("idS", auditory).executeUpdate();
+            session.createQuery("delete from Cell where auditory2=:idS").setParameter("idS", auditory).executeUpdate();
+            session.createQuery("delete from Cell where auditory3=:idS").setParameter("idS", auditory).executeUpdate();
+            session.createQuery("delete from Cell where auditory4=:idS").setParameter("idS", auditory).executeUpdate();
             session.delete(auditory);
+           // session.getTransaction().commit();
             session.getTransaction().commit();
         } catch (Exception e) {
             System.out.println(e);

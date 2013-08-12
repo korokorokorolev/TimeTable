@@ -158,6 +158,14 @@ public class Subject implements Serializable {
         return true;
     }
 
+    public boolean equalsTeachers(Subject other) {
+        if(other != null) {
+            return this.teacherId.equals(other.getTeacherId());
+        } else {
+            return false;
+        }
+    }
+
     @Override
     public String toString() {
         return name;

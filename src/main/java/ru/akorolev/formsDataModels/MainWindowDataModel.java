@@ -47,6 +47,10 @@ public class MainWindowDataModel {
         }
     }
 
+    public List getCellsFromTF(TrainingFeed trainingFeed) {
+        return this.dao.getCellsFromTF(trainingFeed);
+    }
+
     /**
      * Интерфей слушателя изменений модели данных
      */
