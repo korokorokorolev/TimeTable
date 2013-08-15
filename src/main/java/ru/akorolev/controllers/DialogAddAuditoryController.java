@@ -3,6 +3,7 @@ package ru.akorolev.controllers;
 import ru.akorolev.entities.Auditory;
 import ru.akorolev.forms.DialogAddAuditory;
 import ru.akorolev.formsDataModels.DialogAddAuditoryDataModel;
+import ru.akorolev.informer.Informer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -62,7 +63,7 @@ public class DialogAddAuditoryController extends AbstractController{
                 this.isSuccess = true;
                 view.dispose();
             } catch (Exception e) {
-                System.out.println(e);
+                new Informer(null, true).setVisible(true);
             }
         }
     }

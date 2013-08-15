@@ -3,6 +3,7 @@ package ru.akorolev.controllers;
 import ru.akorolev.entities.Teacher;
 import ru.akorolev.forms.DialogTeacher;
 import ru.akorolev.formsDataModels.DialogTeacherDataModel;
+import ru.akorolev.informer.Informer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -68,7 +69,7 @@ public class DialogTeacherController extends AbstractController{
                 this.isSuccess = true;
                 dialogTeacher.dispose();
             } catch(Exception e) {
-                System.out.println(e);
+                new Informer(null, true).setVisible(true);
             }
         }
     }

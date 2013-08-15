@@ -129,31 +129,50 @@ public class MainWindowController extends AbstractController{
     }
 
     private void onAuditopryEmploymentClick() {
-        DialogAuditoriesEmploymentController dialogAuditoriesEmploymentController = new DialogAuditoriesEmploymentController();
+        try {
+            DialogAuditoriesEmploymentController dialogAuditoriesEmploymentController = new DialogAuditoriesEmploymentController();
+        } catch (Exception e) {
+            new Informer(null, true).setVisible(true);
+        }
     }
 
     private void onTeachersEmploymentClick() {
-        DialogTeachersEmploymentController dialogTeachersEmploymentController = new DialogTeachersEmploymentController();
-
+        try {
+            DialogTeachersEmploymentController dialogTeachersEmploymentController = new DialogTeachersEmploymentController();
+        } catch (Exception e) {
+            new Informer(null, true).setVisible(true);
+        }
     }
 
     private void onEditButtonClick() {
-        if(mainWindow.getjListTrainingFeeds().getSelectedValue() != null) {
-            DialogRaspisanieController dialogRaspisanieController =
-                    new DialogRaspisanieController((TrainingFeed)mainWindow.getjListTrainingFeeds().getSelectedValue());
+        try {
+            if(mainWindow.getjListTrainingFeeds().getSelectedValue() != null) {
+                DialogRaspisanieController dialogRaspisanieController =
+                        new DialogRaspisanieController((TrainingFeed)mainWindow.getjListTrainingFeeds().getSelectedValue());
+            }
+        } catch (Exception e) {
+            new Informer(null, true).setVisible(true);
         }
     }
 
     private void onRemTFButtonClick() {
-        if(mainWindow.getjListTrainingFeeds().getSelectedValue() != null) {
-            dataModel.remTrainingFeed((TrainingFeed) mainWindow.getjListTrainingFeeds().getSelectedValue());
+        try {
+            if(mainWindow.getjListTrainingFeeds().getSelectedValue() != null) {
+                dataModel.remTrainingFeed((TrainingFeed) mainWindow.getjListTrainingFeeds().getSelectedValue());
+            }
+        } catch (Exception e) {
+            new Informer(null, true).setVisible(true);
         }
     }
 
     private void onAddTFButtonClick() {
         DialogAddTrainingFeedController dialogAddTrainingFeedController = new DialogAddTrainingFeedController();
-        if(dialogAddTrainingFeedController.isSuccess()) {
-            mainWindow.getjListTrainingFeeds().setModel(dataModel.getTrainingFeedsModel());
+        try {
+            if(dialogAddTrainingFeedController.isSuccess()) {
+                mainWindow.getjListTrainingFeeds().setModel(dataModel.getTrainingFeedsModel());
+            }
+        } catch (Exception e) {
+            new Informer(null, true).setVisible(true);
         }
     }
 }

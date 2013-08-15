@@ -5,6 +5,7 @@ import ru.akorolev.entities.Groups;
 import ru.akorolev.entities.TrainingFeed;
 import ru.akorolev.forms.DialogRaspisanie;
 import ru.akorolev.formsDataModels.DialogRaspisanieDataModel;
+import ru.akorolev.informer.Informer;
 import ru.akorolev.printer.Printer;
 import ru.akorolev.staticsVariables.Days;
 import ru.akorolev.widgets.DayTable;
@@ -42,19 +43,23 @@ public class DialogRaspisanieController extends AbstractController{
     }
 
     private void repaintTables() {
-        view.getDayTable1().setModel(dataModel.getDayTableModel(Days.MONDAY, trainingFeed));
-        view.getDayTable2().setModel(dataModel.getDayTableModel(Days.TUESDAY, trainingFeed));
-        view.getDayTable3().setModel(dataModel.getDayTableModel(Days.WEDNESDAY, trainingFeed));
-        view.getDayTable4().setModel(dataModel.getDayTableModel(Days.THURSDAY, trainingFeed));
-        view.getDayTable5().setModel(dataModel.getDayTableModel(Days.FRIDAY, trainingFeed));
-        view.getDayTable6().setModel(dataModel.getDayTableModel(Days.SATURDAY, trainingFeed));
+        try {
+            view.getDayTable1().setModel(dataModel.getDayTableModel(Days.MONDAY, trainingFeed));
+            view.getDayTable2().setModel(dataModel.getDayTableModel(Days.TUESDAY, trainingFeed));
+            view.getDayTable3().setModel(dataModel.getDayTableModel(Days.WEDNESDAY, trainingFeed));
+            view.getDayTable4().setModel(dataModel.getDayTableModel(Days.THURSDAY, trainingFeed));
+            view.getDayTable5().setModel(dataModel.getDayTableModel(Days.FRIDAY, trainingFeed));
+            view.getDayTable6().setModel(dataModel.getDayTableModel(Days.SATURDAY, trainingFeed));
 
-        view.getDayTable1().setDefaultRenderer(Object.class, dataModel.getRenderer(Days.MONDAY, trainingFeed));
-        view.getDayTable2().setDefaultRenderer(Object.class, dataModel.getRenderer(Days.TUESDAY, trainingFeed));
-        view.getDayTable3().setDefaultRenderer(Object.class, dataModel.getRenderer(Days.WEDNESDAY, trainingFeed));
-        view.getDayTable4().setDefaultRenderer(Object.class, dataModel.getRenderer(Days.THURSDAY, trainingFeed));
-        view.getDayTable5().setDefaultRenderer(Object.class, dataModel.getRenderer(Days.FRIDAY, trainingFeed));
-        view.getDayTable6().setDefaultRenderer(Object.class, dataModel.getRenderer(Days.SATURDAY, trainingFeed));
+            view.getDayTable1().setDefaultRenderer(Object.class, dataModel.getRenderer(Days.MONDAY, trainingFeed));
+            view.getDayTable2().setDefaultRenderer(Object.class, dataModel.getRenderer(Days.TUESDAY, trainingFeed));
+            view.getDayTable3().setDefaultRenderer(Object.class, dataModel.getRenderer(Days.WEDNESDAY, trainingFeed));
+            view.getDayTable4().setDefaultRenderer(Object.class, dataModel.getRenderer(Days.THURSDAY, trainingFeed));
+            view.getDayTable5().setDefaultRenderer(Object.class, dataModel.getRenderer(Days.FRIDAY, trainingFeed));
+            view.getDayTable6().setDefaultRenderer(Object.class, dataModel.getRenderer(Days.SATURDAY, trainingFeed));
+        } catch (Exception e) {
+            new Informer(null, true).setVisible(true);
+        }
     }
 
     @Override
@@ -76,28 +81,31 @@ public class DialogRaspisanieController extends AbstractController{
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (e.getClickCount() == 2) {
-                DialogCellController dialogCellController = null;
-                if(((DayTable) e.getComponent()).getModel().getValueAt(((DayTable) e.getComponent()).getSelectedRow(), ((DayTable) e.getComponent()).getSelectedColumn()) instanceof Cell){
-                    Cell currCell = (Cell) ((DayTable) e.getComponent()).getModel().getValueAt(((DayTable) e.getComponent()).getSelectedRow(), ((DayTable) e.getComponent()).getSelectedColumn());
-                    System.out.println(currCell.getId());
-                    dialogCellController = new DialogCellController(true, currCell);
-                } else {
-                    String grName = ((DayTable) e.getComponent()).getColumnName(((DayTable) e.getComponent()).getSelectedColumn());
-                    Groups group = dataModel.getGroup(grName);
-                    String day = ((DayTable) e.getComponent()).getDay();
-                    int trainingNum = ((DayTable) e.getComponent()).getSelectedRow();
-                    Cell cell = new Cell();
-                    cell.setDay(day);
-                    cell.setTrainingNum(trainingNum);
-                    cell.setGroupsId(group);
-                    System.out.println(cell.getDay() + " " + cell.getTrainingNum() + " " + cell.getGroupsId());
-                    dialogCellController = new DialogCellController(false, cell);
+            try {
+                if (e.getClickCount() == 2) {
+                    DialogCellController dialogCellController = null;
+                    if(((DayTable) e.getComponent()).getModel().getValueAt(((DayTable) e.getComponent()).getSelectedRow(), ((DayTable) e.getComponent()).getSelectedColumn()) instanceof Cell){
+                        Cell currCell = (Cell) ((DayTable) e.getComponent()).getModel().getValueAt(((DayTable) e.getComponent()).getSelectedRow(), ((DayTable) e.getComponent()).getSelectedColumn());
+                        System.out.println(currCell.getId());
+                        dialogCellController = new DialogCellController(true, currCell);
+                    } else {
+                        String grName = ((DayTable) e.getComponent()).getColumnName(((DayTable) e.getComponent()).getSelectedColumn());
+                        Groups group = dataModel.getGroup(grName);
+                        String day = ((DayTable) e.getComponent()).getDay();
+                        int trainingNum = ((DayTable) e.getComponent()).getSelectedRow();
+                        Cell cell = new Cell();
+                        cell.setDay(day);
+                        cell.setTrainingNum(trainingNum);
+                        cell.setGroupsId(group);
+                        dialogCellController = new DialogCellController(false, cell);
 
+                    }
+                    if(dialogCellController.isSuccess()) {
+                        repaintTables();
+                    }
                 }
-                if(dialogCellController.isSuccess()) {
-                    repaintTables();
-                }
+            } catch (Exception e1) {
+                new Informer(null, true).setVisible(true);
             }
         }
 
@@ -155,12 +163,16 @@ public class DialogRaspisanieController extends AbstractController{
         try {
             printer.print();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            new Informer(null, true).setVisible(true);
         }
     }
 
     private void onShowConflictsClick() {
-        DialogConflictsController dialogConflictsController = new DialogConflictsController();
-        repaintTables();
+        try {
+            DialogConflictsController dialogConflictsController = new DialogConflictsController();
+            repaintTables();
+        } catch (Exception e) {
+            new Informer(null, true).setVisible(true);
+        }
     }
 }

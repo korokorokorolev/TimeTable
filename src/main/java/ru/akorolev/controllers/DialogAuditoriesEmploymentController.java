@@ -5,6 +5,7 @@ import ru.akorolev.entities.Teacher;
 import ru.akorolev.forms.DialogAuditoryEmployment;
 import ru.akorolev.formsDataModels.DialogAuditoriesDataModel;
 import ru.akorolev.formsDataModels.DialogAuditoriesEmploymentDataModel;
+import ru.akorolev.informer.Informer;
 import ru.akorolev.staticsVariables.Days;
 
 import java.awt.event.ActionEvent;
@@ -46,11 +47,15 @@ public class DialogAuditoriesEmploymentController extends AbstractController{
 
     @Override
     void initView() {
-        view = new DialogAuditoryEmployment(null ,true);
-        view.getjComboBoxAuditory().setModel(dataModel.getAuditoriesModel());
-        if(view.getjComboBoxAuditory().getModel().getSize() > 0) {
-            view.getjComboBoxAuditory().setSelectedIndex(0);
-            onComboChange();
+        try {
+            view = new DialogAuditoryEmployment(null ,true);
+            view.getjComboBoxAuditory().setModel(dataModel.getAuditoriesModel());
+            if(view.getjComboBoxAuditory().getModel().getSize() > 0) {
+                view.getjComboBoxAuditory().setSelectedIndex(0);
+                onComboChange();
+            }
+        } catch (Exception e) {
+            new Informer(null, true).setVisible(true);
         }
     }
 
@@ -77,25 +82,33 @@ public class DialogAuditoriesEmploymentController extends AbstractController{
 
     private void repaintTablesZn() {
         if(view.getjComboBoxAuditory().getSelectedItem() != null) {
-            view.getjTable1().setModel(dataModel.getTableZnModel(Days.MONDAY, (Auditory) view.getjComboBoxAuditory().getSelectedItem()));
-            view.getjTable2().setModel(dataModel.getTableZnModel(Days.TUESDAY, (Auditory) view.getjComboBoxAuditory().getSelectedItem()));
-            view.getjTable3().setModel(dataModel.getTableZnModel(Days.WEDNESDAY, (Auditory) view.getjComboBoxAuditory().getSelectedItem()));
-            view.getjTable4().setModel(dataModel.getTableZnModel(Days.THURSDAY, (Auditory) view.getjComboBoxAuditory().getSelectedItem()));
-            view.getjTable5().setModel(dataModel.getTableZnModel(Days.FRIDAY, (Auditory) view.getjComboBoxAuditory().getSelectedItem()));
-            view.getjTable6().setModel(dataModel.getTableZnModel(Days.SATURDAY, (Auditory) view.getjComboBoxAuditory().getSelectedItem()));
-            setColumnsWidth();
+            try {
+                view.getjTable1().setModel(dataModel.getTableZnModel(Days.MONDAY, (Auditory) view.getjComboBoxAuditory().getSelectedItem()));
+                view.getjTable2().setModel(dataModel.getTableZnModel(Days.TUESDAY, (Auditory) view.getjComboBoxAuditory().getSelectedItem()));
+                view.getjTable3().setModel(dataModel.getTableZnModel(Days.WEDNESDAY, (Auditory) view.getjComboBoxAuditory().getSelectedItem()));
+                view.getjTable4().setModel(dataModel.getTableZnModel(Days.THURSDAY, (Auditory) view.getjComboBoxAuditory().getSelectedItem()));
+                view.getjTable5().setModel(dataModel.getTableZnModel(Days.FRIDAY, (Auditory) view.getjComboBoxAuditory().getSelectedItem()));
+                view.getjTable6().setModel(dataModel.getTableZnModel(Days.SATURDAY, (Auditory) view.getjComboBoxAuditory().getSelectedItem()));
+                setColumnsWidth();
+            } catch (Exception e) {
+                new Informer(null, true).setVisible(true);
+            }
         }
     }
 
     private void repaintTablesCh() {
         if(view.getjComboBoxAuditory().getSelectedItem() != null) {
-            view.getjTable1().setModel(dataModel.getTableChModel(Days.MONDAY, (Auditory)view.getjComboBoxAuditory().getSelectedItem()));
-            view.getjTable2().setModel(dataModel.getTableChModel(Days.TUESDAY, (Auditory)view.getjComboBoxAuditory().getSelectedItem()));
-            view.getjTable3().setModel(dataModel.getTableChModel(Days.WEDNESDAY, (Auditory)view.getjComboBoxAuditory().getSelectedItem()));
-            view.getjTable4().setModel(dataModel.getTableChModel(Days.THURSDAY, (Auditory)view.getjComboBoxAuditory().getSelectedItem()));
-            view.getjTable5().setModel(dataModel.getTableChModel(Days.FRIDAY, (Auditory)view.getjComboBoxAuditory().getSelectedItem()));
-            view.getjTable6().setModel(dataModel.getTableChModel(Days.SATURDAY, (Auditory)view.getjComboBoxAuditory().getSelectedItem()));
-            setColumnsWidth();
+            try {
+                view.getjTable1().setModel(dataModel.getTableChModel(Days.MONDAY, (Auditory)view.getjComboBoxAuditory().getSelectedItem()));
+                view.getjTable2().setModel(dataModel.getTableChModel(Days.TUESDAY, (Auditory)view.getjComboBoxAuditory().getSelectedItem()));
+                view.getjTable3().setModel(dataModel.getTableChModel(Days.WEDNESDAY, (Auditory)view.getjComboBoxAuditory().getSelectedItem()));
+                view.getjTable4().setModel(dataModel.getTableChModel(Days.THURSDAY, (Auditory)view.getjComboBoxAuditory().getSelectedItem()));
+                view.getjTable5().setModel(dataModel.getTableChModel(Days.FRIDAY, (Auditory)view.getjComboBoxAuditory().getSelectedItem()));
+                view.getjTable6().setModel(dataModel.getTableChModel(Days.SATURDAY, (Auditory)view.getjComboBoxAuditory().getSelectedItem()));
+                setColumnsWidth();
+            } catch (Exception e) {
+                new Informer(null, true).setVisible(true);
+            }
         }
     }
 

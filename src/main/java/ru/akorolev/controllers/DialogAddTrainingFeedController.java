@@ -4,6 +4,7 @@ import ru.akorolev.entities.Groups;
 import ru.akorolev.entities.TrainingFeed;
 import ru.akorolev.forms.DialogAddTrainingFeed;
 import ru.akorolev.formsDataModels.DialogAddTrainingFeedDataModel;
+import ru.akorolev.informer.Informer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -87,21 +88,29 @@ public class DialogAddTrainingFeedController extends AbstractController{
                 this.isSuccess = true;
                 view.dispose();
             } catch (Exception e) {
-                System.out.println(e);
+                new Informer(null, true).setVisible(true);
             }
         }
     }
 
     private void onRemGroupButtonClick() {
         if(view.getjListGroups().getSelectedValue() != null) {
-            dataModel.remGroupFromTrainingFeed(trainingFeed, (Groups) view.getjListGroups().getSelectedValue());
+            try {
+                dataModel.remGroupFromTrainingFeed(trainingFeed, (Groups) view.getjListGroups().getSelectedValue());
+            } catch (Exception e) {
+                new Informer(null, true).setVisible(true);
+            }
         }
     }
 
     private void onAddGroupButtonClick() {
-        DialogAddGroupController dialogAddGroupController = new DialogAddGroupController(trainingFeed);
-        if(dialogAddGroupController.isSuccess()) {
-            view.getjListGroups().setModel(dataModel.getGroupsListModel(trainingFeed));
+        try {
+            DialogAddGroupController dialogAddGroupController = new DialogAddGroupController(trainingFeed);
+            if(dialogAddGroupController.isSuccess()) {
+                view.getjListGroups().setModel(dataModel.getGroupsListModel(trainingFeed));
+            }
+        } catch (Exception e) {
+            new Informer(null, true).setVisible(true);
         }
     }
 }

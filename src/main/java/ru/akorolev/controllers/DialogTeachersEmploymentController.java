@@ -3,6 +3,7 @@ package ru.akorolev.controllers;
 import ru.akorolev.entities.Teacher;
 import ru.akorolev.forms.DialogTeachersEmployment;
 import ru.akorolev.formsDataModels.DialogTeachersEmploymentDataModel;
+import ru.akorolev.informer.Informer;
 import ru.akorolev.printer.PrintTeacher;
 import ru.akorolev.staticsVariables.Days;
 
@@ -78,7 +79,7 @@ public class DialogTeachersEmploymentController extends AbstractController{
             try {
                 printer.print();
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                new Informer(null, true).setVisible(true);
             }
         }
     }

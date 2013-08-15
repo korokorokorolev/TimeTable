@@ -4,6 +4,7 @@ import ru.akorolev.entities.Subject;
 import ru.akorolev.entities.Teacher;
 import ru.akorolev.forms.DialogAddSubject;
 import ru.akorolev.formsDataModels.DialogAddSubjectDataModel;
+import ru.akorolev.informer.Informer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -66,7 +67,7 @@ public class DialogAddSubjectController extends AbstractController{
                 this.isSuccess = true;
                 view.dispose();
             } catch(Exception e) {
-                System.out.println(e);
+                new Informer(null, true).setVisible(true);
             }
         }
     }

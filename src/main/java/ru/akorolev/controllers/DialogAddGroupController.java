@@ -4,6 +4,7 @@ import ru.akorolev.entities.Groups;
 import ru.akorolev.entities.TrainingFeed;
 import ru.akorolev.forms.DialogAddGroup;
 import ru.akorolev.formsDataModels.DialogAddGroupDataModel;
+import ru.akorolev.informer.Informer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -59,12 +60,16 @@ public class DialogAddGroupController extends AbstractController{
     }
 
     private void onOkButtonClick() {
-        if(!view.getjTextFieldGroupName().getText().isEmpty()) {
-            Groups group = new Groups();
-            group.setName(view.getjTextFieldGroupName().getText());
-            dataModel.addGroupToTrainingFeed(trainingFeed, group);
-            this.isSuccess = true;
-            view.dispose();
+        try {
+            if(!view.getjTextFieldGroupName().getText().isEmpty()) {
+                Groups group = new Groups();
+                group.setName(view.getjTextFieldGroupName().getText());
+                dataModel.addGroupToTrainingFeed(trainingFeed, group);
+                this.isSuccess = true;
+                view.dispose();
+            }
+        } catch (Exception e) {
+            new Informer(null, true).setVisible(true);
         }
     }
 

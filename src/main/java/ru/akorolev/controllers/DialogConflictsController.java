@@ -3,6 +3,7 @@ package ru.akorolev.controllers;
 import ru.akorolev.entities.Conflict;
 import ru.akorolev.forms.DialogConflicts;
 import ru.akorolev.formsDataModels.DialogConflictsDataModel;
+import ru.akorolev.informer.Informer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -70,14 +71,22 @@ public class DialogConflictsController extends AbstractController {
     }
 
     private void onToConflictButtonClick() {
-        if(view.getjListNoConflicts().getSelectedValue() != null) {
-            dataModel.setStatusToYes((Conflict)view.getjListNoConflicts().getSelectedValue());
+        try {
+            if(view.getjListNoConflicts().getSelectedValue() != null) {
+                dataModel.setStatusToYes((Conflict)view.getjListNoConflicts().getSelectedValue());
+            }
+        } catch (Exception e) {
+            new Informer(null, true).setVisible(true);
         }
     }
 
     private void onToNoConflictButtonClick() {
-        if(view.getjListConflicts().getSelectedValue() != null) {
-            dataModel.setStatusToNo((Conflict)view.getjListConflicts().getSelectedValue());
+        try {
+            if(view.getjListConflicts().getSelectedValue() != null) {
+                dataModel.setStatusToNo((Conflict)view.getjListConflicts().getSelectedValue());
+            }
+        } catch (Exception e) {
+            new Informer(null, true).setVisible(true);
         }
     }
 }

@@ -3,6 +3,7 @@ package ru.akorolev.controllers;
 import ru.akorolev.entities.Auditory;
 import ru.akorolev.forms.DialogAuditories;
 import ru.akorolev.formsDataModels.DialogAuditoriesDataModel;
+import ru.akorolev.informer.Informer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,8 +39,12 @@ public class DialogAuditoriesController extends AbstractController{
         this.dataModel.setListener(new DialogAuditoriesDataModel.OnChangeListener() {
             @Override
             public void onAuditoryDeleted() {
-                view.getjListAuditories().setModel(dataModel.getAuditoriesModel());
-                view.getjListAuditories().setSelectedIndex(view.getjListAuditories().getModel().getSize() -1);
+                try {
+                    view.getjListAuditories().setModel(dataModel.getAuditoriesModel());
+                    view.getjListAuditories().setSelectedIndex(view.getjListAuditories().getModel().getSize() -1);
+                } catch (Exception e) {
+                    new Informer(null, true).setVisible(true);
+                }
             }
         });
     }
@@ -70,16 +75,20 @@ public class DialogAuditoriesController extends AbstractController{
             try{
                 dataModel.removeAuditory((Auditory)view.getjListAuditories().getSelectedValue());
             } catch(Exception e) {
-
+                new Informer(null, true).setVisible(true);
             }
         }
     }
 
     private void onAddAuditoryButtonClick() {
-        DialogAddAuditoryController dialogAddAuditoryController = new DialogAddAuditoryController();
-        if(dialogAddAuditoryController.isSuccess()) {
-            view.getjListAuditories().setModel(dataModel.getAuditoriesModel());
-            view.getjListAuditories().setSelectedIndex(view.getjListAuditories().getModel().getSize() - 1);
+        try {
+            DialogAddAuditoryController dialogAddAuditoryController = new DialogAddAuditoryController();
+            if(dialogAddAuditoryController.isSuccess()) {
+                view.getjListAuditories().setModel(dataModel.getAuditoriesModel());
+                view.getjListAuditories().setSelectedIndex(view.getjListAuditories().getModel().getSize() - 1);
+            }
+        } catch (Exception e) {
+            new Informer(null, true).setVisible(true);
         }
     }
 

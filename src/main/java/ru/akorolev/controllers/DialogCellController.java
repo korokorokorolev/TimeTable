@@ -3,6 +3,7 @@ package ru.akorolev.controllers;
 import ru.akorolev.entities.Cell;
 import ru.akorolev.forms.DialogCell;
 import ru.akorolev.formsDataModels.DialogCellDataModel;
+import ru.akorolev.informer.Informer;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -53,15 +54,19 @@ public class DialogCellController extends AbstractController{
     }
 
     private void initInfo() {
-        view.getjListTeachersChFreedom().setModel(dataModel.getTeachersChFreedomModel(cell));
-        view.getjListTeachersChEmpl().setModel(dataModel.getTeachersChEmplModel(cell));
-        view.getjListAudChEmpl().setModel(dataModel.getAudChEmplModel(cell));
-        view.getjListAudChFreedom().setModel(dataModel.getAudChFreedomModel(cell));
+        try {
+            view.getjListTeachersChFreedom().setModel(dataModel.getTeachersChFreedomModel(cell));
+            view.getjListTeachersChEmpl().setModel(dataModel.getTeachersChEmplModel(cell));
+            view.getjListAudChEmpl().setModel(dataModel.getAudChEmplModel(cell));
+            view.getjListAudChFreedom().setModel(dataModel.getAudChFreedomModel(cell));
 
-        view.getjListTeachersZnEmpl().setModel(dataModel.getTeachersZnEmplModel(cell));
-        view.getjListTeachersZnFreedom().setModel(dataModel.getTeachersZnFreedomModel(cell));
-        view.getjListAudZnEmpl().setModel(dataModel.getAudZnEmplModel(cell));
-        view.getjListAudZnFreedom().setModel(dataModel.getAudZnFreedomModel(cell));
+            view.getjListTeachersZnEmpl().setModel(dataModel.getTeachersZnEmplModel(cell));
+            view.getjListTeachersZnFreedom().setModel(dataModel.getTeachersZnFreedomModel(cell));
+            view.getjListAudZnEmpl().setModel(dataModel.getAudZnEmplModel(cell));
+            view.getjListAudZnFreedom().setModel(dataModel.getAudZnFreedomModel(cell));
+        } catch (Exception e) {
+            new Informer(null, true).setVisible(true);
+        }
     }
 
     @Override
@@ -133,52 +138,76 @@ public class DialogCellController extends AbstractController{
     }
 
     private void onTestButtonClick() {
-        Cell cellCopy = new Cell(cell.getId(), cell.getDay(), cell.getTrainingNum());
-        if(cellCopy.getId() == null) {
-            cellCopy.setId(-1);
-        }
-        cellCopy.setAuditory1(panel4PartController1.getAuditory());
-        cellCopy.setAuditory2(panel4PartController2.getAuditory());
-        cellCopy.setAuditory3(panel4PartController3.getAuditory());
-        cellCopy.setAuditory4(panel4PartController4.getAuditory());
+        try {
+            Cell cellCopy = new Cell(cell.getId(), cell.getDay(), cell.getTrainingNum());
+            if(cellCopy.getId() == null) {
+                cellCopy.setId(-1);
+            }
+            cellCopy.setAuditory1(panel4PartController1.getAuditory());
+            cellCopy.setAuditory2(panel4PartController2.getAuditory());
+            cellCopy.setAuditory3(panel4PartController3.getAuditory());
+            cellCopy.setAuditory4(panel4PartController4.getAuditory());
 
-        cellCopy.setSubject1(panel4PartController1.getSubject());
-        cellCopy.setSubject2(panel4PartController2.getSubject());
-        cellCopy.setSubject3(panel4PartController3.getSubject());
-        cellCopy.setSubject4(panel4PartController4.getSubject());
-        view.getjLabelTest().setText(dataModel.getStatusCurrentSituation(cellCopy));
+            cellCopy.setSubject1(panel4PartController1.getSubject());
+            cellCopy.setSubject2(panel4PartController2.getSubject());
+            cellCopy.setSubject3(panel4PartController3.getSubject());
+            cellCopy.setSubject4(panel4PartController4.getSubject());
+            view.getjLabelTest().setText(dataModel.getStatusCurrentSituation(cellCopy));
+        } catch (Exception e) {
+            new Informer(null, true).setVisible(true);
+        }
     }
 
     private void onButton34CLick() {
-        if(panel4PartController3 != null && panel4PartController4 != null) {
-            panel4PartController4.setupTSA(panel4PartController3.getSubject(), panel4PartController3.getAuditory());
+        try {
+            if(panel4PartController3 != null && panel4PartController4 != null) {
+                panel4PartController4.setupTSA(panel4PartController3.getSubject(), panel4PartController3.getAuditory());
+            }
+        } catch (Exception e) {
+            new Informer(null, true).setVisible(true);
         }
     }
 
     private void onButton24Click() {
-        if(panel4PartController2 != null && panel4PartController4 != null) {
-            panel4PartController4.setupTSA(panel4PartController2.getSubject(), panel4PartController2.getAuditory());
+        try {
+            if(panel4PartController2 != null && panel4PartController4 != null) {
+                panel4PartController4.setupTSA(panel4PartController2.getSubject(), panel4PartController2.getAuditory());
+            }
+        } catch (Exception e) {
+            new Informer(null, true).setVisible(true);
         }
     }
 
     private void onButton13Click() {
-        if(panel4PartController1 != null && panel4PartController3 != null) {
-            panel4PartController3.setupTSA(panel4PartController1.getSubject(), panel4PartController1.getAuditory());
+        try {
+            if(panel4PartController1 != null && panel4PartController3 != null) {
+                panel4PartController3.setupTSA(panel4PartController1.getSubject(), panel4PartController1.getAuditory());
+            }
+        } catch (Exception e) {
+            new Informer(null, true).setVisible(true);
         }
     }
 
     private void onButton12Click() {
-        if(panel4PartController1 != null && panel4PartController2 != null) {
-            panel4PartController2.setupTSA(panel4PartController1.getSubject(), panel4PartController1.getAuditory());
+        try {
+            if(panel4PartController1 != null && panel4PartController2 != null) {
+                panel4PartController2.setupTSA(panel4PartController1.getSubject(), panel4PartController1.getAuditory());
+            }
+        } catch (Exception e) {
+            new Informer(null, true).setVisible(true);
         }
     }
 
     private void onAllButtonClick() {
-        if(panel4PartController1 != null && panel4PartController2 != null
-                && panel4PartController3 != null && panel4PartController4 != null) {
-            panel4PartController2.setupTSA(panel4PartController1.getSubject(), panel4PartController1.getAuditory());
-            panel4PartController3.setupTSA(panel4PartController1.getSubject(), panel4PartController1.getAuditory());
-            panel4PartController4.setupTSA(panel4PartController1.getSubject(), panel4PartController1.getAuditory());
+        try {
+            if(panel4PartController1 != null && panel4PartController2 != null
+                    && panel4PartController3 != null && panel4PartController4 != null) {
+                panel4PartController2.setupTSA(panel4PartController1.getSubject(), panel4PartController1.getAuditory());
+                panel4PartController3.setupTSA(panel4PartController1.getSubject(), panel4PartController1.getAuditory());
+                panel4PartController4.setupTSA(panel4PartController1.getSubject(), panel4PartController1.getAuditory());
+            }
+        } catch (Exception e) {
+            new Informer(null, true).setVisible(true);
         }
     }
 
@@ -206,7 +235,7 @@ public class DialogCellController extends AbstractController{
                     view.dispose();
                 }
             } catch (Exception e) {
-                System.out.println(e);
+                new Informer(null, true).setVisible(true);
             }
 
         }

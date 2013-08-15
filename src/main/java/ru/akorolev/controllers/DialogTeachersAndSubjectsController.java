@@ -4,6 +4,7 @@ import ru.akorolev.entities.Subject;
 import ru.akorolev.entities.Teacher;
 import ru.akorolev.forms.DialogTeachersAndSubjects;
 import ru.akorolev.formsDataModels.DialogTeachersAndSubjectsDataModel;
+import ru.akorolev.informer.Informer;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -45,15 +46,23 @@ public class DialogTeachersAndSubjectsController extends AbstractController{
     }
 
     private void onSubjectDeletedImpl(Teacher teacher) {
-        dialogTeachersAndSubjects.getjListSubjects().setModel(dataModel.getSubjectsModel(teacher));
+        try {
+            dialogTeachersAndSubjects.getjListSubjects().setModel(dataModel.getSubjectsModel(teacher));
+        } catch (Exception e) {
+            new Informer(null, true).setVisible(true);
+        }
     }
 
     private void onTeacherDeletedImpl() {
-        dialogTeachersAndSubjects.getjListTeachers().setModel(dataModel.getTeachersModel());
-        if(dialogTeachersAndSubjects.getjListTeachers().getModel().getSize() -1 > 0) {
-            dialogTeachersAndSubjects.getjListTeachers().setSelectedIndex(dialogTeachersAndSubjects.getjListTeachers().getModel().getSize() -1);
-        } else {
-            dialogTeachersAndSubjects.getjListSubjects().setModel(dataModel.getEmptySubjectsModel());
+        try {
+            dialogTeachersAndSubjects.getjListTeachers().setModel(dataModel.getTeachersModel());
+            if(dialogTeachersAndSubjects.getjListTeachers().getModel().getSize() -1 > 0) {
+                dialogTeachersAndSubjects.getjListTeachers().setSelectedIndex(dialogTeachersAndSubjects.getjListTeachers().getModel().getSize() -1);
+            } else {
+                dialogTeachersAndSubjects.getjListSubjects().setModel(dataModel.getEmptySubjectsModel());
+            }
+        } catch (Exception e) {
+            new Informer(null, true).setVisible(true);
         }
     }
     @Override
@@ -109,41 +118,57 @@ public class DialogTeachersAndSubjectsController extends AbstractController{
     }
 
     private void onRemSubjectButtonClick() {
-        if(dialogTeachersAndSubjects.getjListTeachers().getSelectedValue() != null &&
-                dialogTeachersAndSubjects.getjListSubjects().getSelectedValue() != null) {
-            try {
-                dataModel.remSubject((Subject)dialogTeachersAndSubjects.getjListSubjects().getSelectedValue());
-            } catch (Exception e) {
+        try {
+            if(dialogTeachersAndSubjects.getjListTeachers().getSelectedValue() != null &&
+                    dialogTeachersAndSubjects.getjListSubjects().getSelectedValue() != null) {
+                try {
+                    dataModel.remSubject((Subject)dialogTeachersAndSubjects.getjListSubjects().getSelectedValue());
+                } catch (Exception e) {
 
+                }
             }
+        } catch (Exception e) {
+            new Informer(null, true).setVisible(true);
         }
     }
 
     private void onRemTeacherButtonClick() {
-        if(dialogTeachersAndSubjects.getjListTeachers().getSelectedValue() != null) {
-            try{
-                dataModel.remTeacher((Teacher) dialogTeachersAndSubjects.getjListTeachers().getSelectedValue());
-            } catch (Exception e) {
-                System.out.println(e);
+        try {
+            if(dialogTeachersAndSubjects.getjListTeachers().getSelectedValue() != null) {
+                try{
+                    dataModel.remTeacher((Teacher) dialogTeachersAndSubjects.getjListTeachers().getSelectedValue());
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
             }
+        } catch (Exception e) {
+            new Informer(null, true).setVisible(true);
         }
     }
 
     private void onAddSubjectButtonClick() {
-        if(dialogTeachersAndSubjects.getjListTeachers().getSelectedValue() != null) {
-            Teacher teacher = (Teacher) dialogTeachersAndSubjects.getjListTeachers().getSelectedValue();
-            DialogAddSubjectController dialogAddSubjectController = new DialogAddSubjectController(teacher);
-            if(dialogAddSubjectController.isSuccess()) {
-                dialogTeachersAndSubjects.getjListSubjects().setModel(dataModel.getSubjectsModel(teacher));
+        try {
+            if(dialogTeachersAndSubjects.getjListTeachers().getSelectedValue() != null) {
+                Teacher teacher = (Teacher) dialogTeachersAndSubjects.getjListTeachers().getSelectedValue();
+                DialogAddSubjectController dialogAddSubjectController = new DialogAddSubjectController(teacher);
+                if(dialogAddSubjectController.isSuccess()) {
+                    dialogTeachersAndSubjects.getjListSubjects().setModel(dataModel.getSubjectsModel(teacher));
+                }
             }
+        } catch (Exception e) {
+            new Informer(null, true).setVisible(true);
         }
 
     }
 
     private void onAddTeachersButtonClick() {
-        DialogTeacherController dialogTeacherController = new DialogTeacherController();
-        if(dialogTeacherController.isSuccess()) {
-            dialogTeachersAndSubjects.getjListTeachers().setModel(dataModel.getTeachersModel());
+        try {
+            DialogTeacherController dialogTeacherController = new DialogTeacherController();
+            if(dialogTeacherController.isSuccess()) {
+                dialogTeachersAndSubjects.getjListTeachers().setModel(dataModel.getTeachersModel());
+            }
+        } catch (Exception e) {
+            new Informer(null, true).setVisible(true);
         }
     }
 }
