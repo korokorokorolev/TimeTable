@@ -42,6 +42,7 @@ public class Printer {
         printDay(Days.FRIDAY);
         printDay(Days.SATURDAY);
         printStream.println("</html>");
+        printStream.close();
     }
 
     private void printGroups() {

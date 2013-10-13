@@ -73,5 +73,6 @@ public class PrintTeacher {
             printStream.println("</tr>");
         }
         printStream.println("</table>");
+        printStream.close();
     }
 }
