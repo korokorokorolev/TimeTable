@@ -4,14 +4,9 @@
  */
 package ru.akorolev.databaseaccess;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import org.hibernate.Query;
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import java.util.*;
+
+import org.hibernate.*;
 import org.hibernate.cfg.AnnotationConfiguration;
 import ru.akorolev.entities.Auditory;
 import ru.akorolev.entities.Cell;
@@ -73,7 +68,6 @@ public class DAOImplementation implements DAO {
         try {
             session.beginTransaction();
             System.out.println(teacher.getSubjectList());
-//            Teacher t = (Teacher) session.load(Teacher.class, teacher.getId());
             for(Subject subject : teacher.getSubjectList()) {
                 removeSubjectWithoutSession(subject);
             }
@@ -291,17 +285,28 @@ public class DAOImplementation implements DAO {
     public void editCell(Cell cell) {
         getNewSession();
         session.beginTransaction();
-        session.update(cell);
-        session.getTransaction().commit();
-        session.close();
+        try {
+            session.update(cell);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            throw new RuntimeException(e);
+        } finally {
+            session.close();
+        }
     }
 
     public void deleteConflictsWithCell(Cell cell) {
         getNewSession();
         session.beginTransaction();
-        session.createQuery("delete from Conflict where cell1=:curr or cell2=:curr").setParameter("curr", cell).executeUpdate();
-        session.getTransaction().commit();
-        session.close();
+        try {
+            session.createQuery("delete from Conflict where cell1=:curr or cell2=:curr").setParameter("curr", cell).executeUpdate();
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            throw new RuntimeException(e);
+        } finally {
+            session.close();
+        }
     }
 
     public List<Cell> getCellsLine(String day, int trainingNum) {
@@ -319,9 +324,14 @@ public class DAOImplementation implements DAO {
     public void saveConflict(Conflict conflict) {
         getNewSession();
         session.beginTransaction();
-        session.save(conflict);
-        session.getTransaction().commit();
-        session.close();
+        try {
+            session.save(conflict);
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            throw new RuntimeException(e);
+        } finally {
+            session.close();
+        }
     }
 
     @Override
@@ -359,6 +369,8 @@ public class DAOImplementation implements DAO {
         sQ.setParameter("tn", cell.getTrainingNum());
         sQ.setParameter("gn", cell.getGroupsId());
         List bussyList = sQ.list();
+        Set set = new HashSet(bussyList);
+        bussyList = new ArrayList(set);
         session.getTransaction().commit();
         session.close();
         return bussyList;
@@ -420,6 +432,8 @@ public class DAOImplementation implements DAO {
         sQ.setParameter("tn", cell.getTrainingNum());
         sQ.setParameter("gn", cell.getGroupsId());
         List bussyList = sQ.list();
+        Set set = new HashSet(bussyList);
+        bussyList = new ArrayList(set);
         session.getTransaction().commit();
         session.close();
         return bussyList;
