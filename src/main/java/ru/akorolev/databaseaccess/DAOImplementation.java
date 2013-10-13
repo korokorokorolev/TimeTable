@@ -64,14 +64,14 @@ public class DAOImplementation implements DAO {
     }
 
     public void removeTeacher(Teacher teacher) {
-        getNewSession();
         try {
-            session.beginTransaction();
             System.out.println(teacher.getSubjectList());
             for(Subject subject : teacher.getSubjectList()) {
-                removeSubjectWithoutSession(subject);
+                removeSubject(subject);
             }
-            session.delete(teacher);
+            getNewSession();
+            session.beginTransaction();
+            session.createSQLQuery("delete from Teacher where id=:tId ").setParameter("tId", teacher.getId()).executeUpdate();
             session.getTransaction().commit();
         } catch (Exception e) {
             System.out.println(e);
