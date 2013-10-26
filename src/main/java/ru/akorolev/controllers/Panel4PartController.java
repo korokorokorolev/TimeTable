@@ -116,4 +116,20 @@ public class Panel4PartController {
         }
     }
 
+    public void updateAuditoriesCombo() {
+        Auditory auditory = (Auditory) this.panel4Part.getjComboBoxAuditory().getSelectedItem();
+        this.panel4Part.getjComboBoxAuditory().setModel(dataModel.getAuditoriesModel());
+        this.panel4Part.getjComboBoxAuditory().setSelectedItem(auditory);
+    }
+
+    public void updateTeachersAndSubjectCombos() {
+        Subject subject = (Subject) this.panel4Part.getjComboBoxSubject().getSelectedItem();
+        this.panel4Part.getjComboBoxTeacher().setModel(dataModel.getTeachersModel());
+        if(subject != null && subject.getTeacherId() != null){
+            this.panel4Part.getjComboBoxTeacher().setSelectedItem(subject.getTeacherId());
+            onComboBoxTeachersChange();
+            this.panel4Part.getjComboBoxSubject().setSelectedItem(subject);
+        }
+
+    }
 }

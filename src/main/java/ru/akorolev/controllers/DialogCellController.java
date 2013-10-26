@@ -4,6 +4,7 @@ import ru.akorolev.entities.Cell;
 import ru.akorolev.forms.DialogCell;
 import ru.akorolev.formsDataModels.DialogCellDataModel;
 import ru.akorolev.informer.Informer;
+import ru.akorolev.staticsVariables.DialogAuditoriesMode;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -135,6 +136,35 @@ public class DialogCellController extends AbstractController{
                 onTestButtonClick();
             }
         });
+        view.getjMenuItemAuditories().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onMenuItemAuditoryClick();
+            }
+        });
+        view.getjMenuItemTeachers().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onMenuItemTeachersClick();
+            }
+        });
+    }
+
+    private void onMenuItemTeachersClick() {
+        DialogTeachersAndSubjectsController dialogTeachersAndSubjectsController = new DialogTeachersAndSubjectsController();
+        panel4PartController1.updateTeachersAndSubjectCombos();
+        panel4PartController2.updateTeachersAndSubjectCombos();
+        panel4PartController3.updateTeachersAndSubjectCombos();
+        panel4PartController4.updateTeachersAndSubjectCombos();
+    }
+
+    private void onMenuItemAuditoryClick() {
+        DialogAuditoriesController dialogAuditoriesController = new DialogAuditoriesController(DialogAuditoriesMode.ADD_ONLY);
+        panel4PartController1.updateAuditoriesCombo();
+        panel4PartController2.updateAuditoriesCombo();
+        panel4PartController3.updateAuditoriesCombo();
+        panel4PartController4.updateAuditoriesCombo();
+
     }
 
     private void onTestButtonClick() {

@@ -4,6 +4,7 @@ import ru.akorolev.entities.Auditory;
 import ru.akorolev.forms.DialogAuditories;
 import ru.akorolev.formsDataModels.DialogAuditoriesDataModel;
 import ru.akorolev.informer.Informer;
+import ru.akorolev.staticsVariables.DialogAuditoriesMode;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,9 +19,11 @@ import java.awt.event.ActionListener;
 public class DialogAuditoriesController extends AbstractController{
     private DialogAuditories view;
     private DialogAuditoriesDataModel dataModel;
-
-    public DialogAuditoriesController() {
+    public DialogAuditoriesController(int mode) {
         super();
+        if(mode == DialogAuditoriesMode.ADD_ONLY) {
+            this.view.getjButtonRemAuditory().setVisible(false);
+        }
         view.setVisible(true);
     }
 
