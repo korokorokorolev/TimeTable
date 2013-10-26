@@ -153,6 +153,7 @@ public class DialogTeachersAndSubjectsController extends AbstractController{
                 DialogAddSubjectController dialogAddSubjectController = new DialogAddSubjectController(teacher);
                 if(dialogAddSubjectController.isSuccess()) {
                     dialogTeachersAndSubjects.getjListSubjects().setModel(dataModel.getSubjectsModel(teacher));
+                    dialogTeachersAndSubjects.getjListSubjects().setSelectedIndex(dialogTeachersAndSubjects.getjListSubjects().getModel().getSize() -1);
                 }
             }
         } catch (Exception e) {
@@ -166,6 +167,7 @@ public class DialogTeachersAndSubjectsController extends AbstractController{
             DialogTeacherController dialogTeacherController = new DialogTeacherController();
             if(dialogTeacherController.isSuccess()) {
                 dialogTeachersAndSubjects.getjListTeachers().setModel(dataModel.getTeachersModel());
+                dialogTeachersAndSubjects.getjListTeachers().setSelectedIndex(dialogTeachersAndSubjects.getjListTeachers().getModel().getSize() -1);
             }
         } catch (Exception e) {
             new Informer(null, true).setVisible(true);

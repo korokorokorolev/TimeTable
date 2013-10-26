@@ -8,6 +8,9 @@ import java.util.*;
 
 import org.hibernate.*;
 import org.hibernate.cfg.AnnotationConfiguration;
+import ru.akorolev.comparators.AuditoriesComparator;
+import ru.akorolev.comparators.TeachersComparator;
+import ru.akorolev.comparators.TrainingFeedsComparator;
 import ru.akorolev.entities.Auditory;
 import ru.akorolev.entities.Cell;
 import ru.akorolev.entities.Conflict;
@@ -151,6 +154,7 @@ public class DAOImplementation implements DAO {
     public List<Teacher> getTeachers() {
         getNewSession();
         List res = session.createQuery("from Teacher").list();
+        Collections.sort(res, new TeachersComparator());
         session.close();
         return res;
     }
@@ -158,6 +162,7 @@ public class DAOImplementation implements DAO {
     public List<Auditory> getAuditories() {
         getNewSession();
         List res = session.createQuery("from Auditory").list();
+        Collections.sort(res, new AuditoriesComparator());
         session.close();
         return res;
     }
@@ -210,6 +215,7 @@ public class DAOImplementation implements DAO {
     public List<TrainingFeed> getTrainingFeeds() {
         getNewSession();
         List res = session.createQuery("from TrainingFeed").list();
+        Collections.sort(res, new TrainingFeedsComparator());
         session.close();
         return res;
     }
