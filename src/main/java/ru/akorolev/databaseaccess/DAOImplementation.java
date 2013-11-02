@@ -86,7 +86,17 @@ public class DAOImplementation implements DAO {
     }
 
     public void editTeacher(Teacher teacher) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        getNewSession();
+        try {
+        session.beginTransaction();
+        session.update(teacher);
+        session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            throw new RuntimeException(e);
+        } finally {
+            session.close();
+        }
     }
 
     public void saveSubject(Subject subject) {
@@ -148,7 +158,17 @@ public class DAOImplementation implements DAO {
     }
 
     public void editSubject(Subject subject) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        getNewSession();
+        try {
+            session.beginTransaction();
+            session.update(subject);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            throw new RuntimeException(e);
+        } finally {
+            session.close();
+        }
     }
 
     public List<Teacher> getTeachers() {

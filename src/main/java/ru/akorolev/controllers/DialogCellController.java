@@ -5,6 +5,7 @@ import ru.akorolev.forms.DialogCell;
 import ru.akorolev.formsDataModels.DialogCellDataModel;
 import ru.akorolev.informer.Informer;
 import ru.akorolev.staticsVariables.DialogAuditoriesMode;
+import ru.akorolev.staticsVariables.DialogTeachersMode;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -151,7 +152,7 @@ public class DialogCellController extends AbstractController{
     }
 
     private void onMenuItemTeachersClick() {
-        DialogTeachersAndSubjectsController dialogTeachersAndSubjectsController = new DialogTeachersAndSubjectsController();
+        DialogTeachersAndSubjectsController dialogTeachersAndSubjectsController = new DialogTeachersAndSubjectsController(DialogTeachersMode.ADD_ONLY);
         panel4PartController1.updateTeachersAndSubjectCombos();
         panel4PartController2.updateTeachersAndSubjectCombos();
         panel4PartController3.updateTeachersAndSubjectCombos();

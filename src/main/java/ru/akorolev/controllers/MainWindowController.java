@@ -6,6 +6,7 @@ import ru.akorolev.formsDataModels.MainWindowDataModel;
 import ru.akorolev.informer.Informer;
 import ru.akorolev.printer.Printer;
 import ru.akorolev.staticsVariables.DialogAuditoriesMode;
+import ru.akorolev.staticsVariables.DialogTeachersMode;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -68,7 +69,7 @@ public class MainWindowController extends AbstractController{
         mainWindow.getjMenuItemTeachersAndSubjects().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DialogTeachersAndSubjectsController dialogTeachersAndSubjectsController = new DialogTeachersAndSubjectsController();
+                DialogTeachersAndSubjectsController dialogTeachersAndSubjectsController = new DialogTeachersAndSubjectsController(DialogTeachersMode.ADD_AND_REMOVE);
             }
         });
         mainWindow.getjMenuItemAuditory().addActionListener(new ActionListener() {

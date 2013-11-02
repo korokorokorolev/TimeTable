@@ -5,11 +5,15 @@ import ru.akorolev.entities.Teacher;
 import ru.akorolev.forms.DialogTeachersAndSubjects;
 import ru.akorolev.formsDataModels.DialogTeachersAndSubjectsDataModel;
 import ru.akorolev.informer.Informer;
+import ru.akorolev.staticsVariables.DialogTeachersMode;
 
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,8 +26,12 @@ public class DialogTeachersAndSubjectsController extends AbstractController{
     private DialogTeachersAndSubjects dialogTeachersAndSubjects;
     private DialogTeachersAndSubjectsDataModel dataModel;
 
-    public DialogTeachersAndSubjectsController() {
+    public DialogTeachersAndSubjectsController(int mode) {
         super();
+        if(mode == DialogTeachersMode.ADD_ONLY) {
+            dialogTeachersAndSubjects.getjButtonRemSubject().setVisible(false);
+            dialogTeachersAndSubjects.getjButtonRemTeacher().setVisible(false);
+        }
         dialogTeachersAndSubjects.setVisible(true);
     }
 
@@ -115,6 +123,8 @@ public class DialogTeachersAndSubjectsController extends AbstractController{
                 onRemSubjectButtonClick();
             }
         });
+        dialogTeachersAndSubjects.getjListTeachers().addMouseListener(new MouseListenerImpl());
+        dialogTeachersAndSubjects.getjListSubjects().addMouseListener(new MouseListenerSubjectImpl());
     }
 
     private void onRemSubjectButtonClick() {
@@ -171,6 +181,64 @@ public class DialogTeachersAndSubjectsController extends AbstractController{
             }
         } catch (Exception e) {
             new Informer(null, true).setVisible(true);
+        }
+    }
+    private class MouseListenerImpl implements MouseListener {
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            try {
+                if (e.getClickCount() == 2) {
+                    DialogTeacherEditController dialogTeacherController = new DialogTeacherEditController((Teacher)((JList)e.getComponent()).getSelectedValue());
+                }
+            } catch (Exception e1) {
+                new Informer(null, true).setVisible(true);
+            }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+        }
+    }
+    private class MouseListenerSubjectImpl implements MouseListener {
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            try {
+                if (e.getClickCount() == 2) {
+                    DialogSubjectEditController dialogSubjectEditController= new DialogSubjectEditController((Subject)((JList)e.getComponent()).getSelectedValue());
+                }
+            } catch (Exception e1) {
+                new Informer(null, true).setVisible(true);
+            }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
         }
     }
 }

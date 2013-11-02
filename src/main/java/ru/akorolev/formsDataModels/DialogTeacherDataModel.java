@@ -17,4 +17,8 @@ public class DialogTeacherDataModel {
     public void saveTeacher(Teacher teacher) {
         dao.saveTeacher(teacher);
     }
+
+    public void editTeacher(Teacher teacher) {
+        dao.editTeacher(teacher);
+    }
 }

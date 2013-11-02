@@ -17,4 +17,8 @@ public class DialogAddSubjectDataModel {
     public void saveSubject(Subject subject) {
         dao.saveSubject(subject);
     }
+
+    public void editSubject(Subject subject) {
+        dao.editSubject(subject);
+    }
 }
