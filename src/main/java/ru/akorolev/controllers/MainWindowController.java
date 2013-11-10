@@ -122,6 +122,7 @@ public class MainWindowController extends AbstractController{
                 onEditButtonClick();
             }
         });
+        mainWindow.getjListTrainingFeeds().addMouseListener(new MouseListenerTFImpl());
     }
 
     private void print() {
@@ -183,6 +184,36 @@ public class MainWindowController extends AbstractController{
             }
         } catch (Exception e) {
             new Informer(null, true).setVisible(true);
+        }
+    }
+
+    private class MouseListenerTFImpl implements MouseListener {
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            try {
+                if (e.getClickCount() == 2) {
+                    onEditButtonClick();
+                }
+            } catch (Exception e1) {
+                new Informer(null, true).setVisible(true);
+            }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
         }
     }
 }
