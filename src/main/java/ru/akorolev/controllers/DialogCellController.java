@@ -149,6 +149,7 @@ public class DialogCellController extends AbstractController{
                 onMenuItemTeachersClick();
             }
         });
+        view.getRootPane().setDefaultButton(view.getjButtonOk());
     }
 
     private void onMenuItemTeachersClick() {

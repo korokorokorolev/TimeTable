@@ -77,6 +77,7 @@ public class DialogAddTrainingFeedController extends AbstractController{
                 onOkButtonClick();
             }
         });
+        view.getRootPane().setDefaultButton(view.getjButtonOk());
     }
 
     private void onOkButtonClick() {

@@ -57,6 +57,7 @@ public class DialogTeacherEditController extends AbstractController {
                 onCancelButtonClick();
             }
         });
+        dialogTeacher.getRootPane().setDefaultButton(dialogTeacher.getjButtonOk());
     }
 
     private void onCancelButtonClick() {

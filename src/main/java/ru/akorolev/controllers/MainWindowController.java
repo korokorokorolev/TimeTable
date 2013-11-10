@@ -1,15 +1,17 @@
 package ru.akorolev.controllers;
 
+import ru.akorolev.entities.Subject;
 import ru.akorolev.entities.TrainingFeed;
 import ru.akorolev.forms.MainWindow;
 import ru.akorolev.formsDataModels.MainWindowDataModel;
 import ru.akorolev.informer.Informer;
+import ru.akorolev.listeners.EnterKeyListener;
 import ru.akorolev.printer.Printer;
 import ru.akorolev.staticsVariables.DialogAuditoriesMode;
 import ru.akorolev.staticsVariables.DialogTeachersMode;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.*;
+import java.awt.event.*;
 import java.io.FileNotFoundException;
 import java.util.List;
 
@@ -112,6 +114,12 @@ public class MainWindowController extends AbstractController{
             @Override
             public void actionPerformed(ActionEvent e) {
                 print();
+            }
+        });
+        mainWindow.getjListTrainingFeeds().addKeyListener(new EnterKeyListener() {
+            @Override
+            public void action() {
+                onEditButtonClick();
             }
         });
     }

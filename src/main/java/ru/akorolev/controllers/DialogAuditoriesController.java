@@ -71,6 +71,7 @@ public class DialogAuditoriesController extends AbstractController{
                 onRemAuditoryButtonClick();
             }
         });
+        view.getRootPane().setDefaultButton(view.getjButtonBack());
     }
 
     private void onRemAuditoryButtonClick() {

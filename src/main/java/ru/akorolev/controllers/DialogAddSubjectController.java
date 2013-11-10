@@ -54,6 +54,7 @@ public class DialogAddSubjectController extends AbstractController{
                 view.dispose();
             }
         });
+        view.getRootPane().setDefaultButton(view.getjButtonOk());
     }
 
     private void onOkButtonClick() {

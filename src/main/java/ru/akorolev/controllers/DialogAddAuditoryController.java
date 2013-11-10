@@ -4,9 +4,12 @@ import ru.akorolev.entities.Auditory;
 import ru.akorolev.forms.DialogAddAuditory;
 import ru.akorolev.formsDataModels.DialogAddAuditoryDataModel;
 import ru.akorolev.informer.Informer;
+import ru.akorolev.listeners.EnterKeyListener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 /**
  * Created with IntelliJ IDEA.
@@ -52,6 +55,7 @@ public class DialogAddAuditoryController extends AbstractController{
                 view.dispose();
             }
         });
+        view.getRootPane().setDefaultButton(view.getjButtonOk());
     }
 
     private void onOkButtonClick() {
