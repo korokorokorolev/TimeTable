@@ -10,7 +10,7 @@
     <class>ru.akorolev.entities.Auditory</class>
     <class>ru.akorolev.entities.Cell</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:c://dyplom_result/TIME_TABLE.sqlite"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:c://TimeTable/TIME_TABLE.sqlite"/>
       <property name="javax.persistence.jdbc.password" value=""/>
       <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC"/>
       <property name="javax.persistence.jdbc.user" value=""/>
